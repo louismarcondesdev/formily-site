@@ -27,7 +27,7 @@ function FaqHelpCard() {
 
 export function FaqSection() {
   return (
-    <section id="duvidas" aria-labelledby="faq-title" className="scroll-mt-24 bg-white py-20 lg:py-28">
+    <section id="duvidas" aria-labelledby="faq-title" className="scroll-mt-24 bg-surface-50 py-20 lg:py-28">
       <Container>
         <Faqs01 id="faq-title" title={faq.title} items={faq.items} defaultValue="item-0" footer={<FaqHelpCard />} />
       </Container>

@@ -5,8 +5,8 @@ import { PulseFitHero, PulseFitMarquee } from "@/components/ui/pulse-fit-hero";
 import { HeroAreaCard } from "./HeroAreaCard";
 import { WhatsAppButton } from "./WhatsAppButton";
 
-// Só as áreas que têm ilustração entram no carrossel.
-const areasWithImage = careAreas.items.flatMap((a) => ("image" in a ? [a] : []));
+// Só as áreas habilitadas que têm ilustração entram no carrossel.
+const areasWithImage = careAreas.items.flatMap((a) => (a.enabled && "image" in a ? [a] : []));
 
 const areaCards = (clone: boolean) =>
   areasWithImage.map((a) => (

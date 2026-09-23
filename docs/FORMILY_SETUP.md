@@ -42,3 +42,9 @@ Ver `docs/FORMILY_IMAGE_BRIEF.md`.
 - Definir `NEXT_PUBLIC_SITE_URL` **no build** (é embutida). Sem ela, o `robots.txt` de produção bloqueia a indexação (`Disallow: /`) e canonical/sitemap apontam para localhost.
 - Definir `NEXT_PUBLIC_WHATSAPP_NUMBER` (sem ela os botões usam URL placeholder e não abrem conversa).
 - Zerar `grep -rn "PREENCHER\|VALIDAR" src`, adicionar `og:image` e remover o aviso de validação jurídica só após revisão jurídica.
+
+## Dados do briefing (10/07/2026) já aplicados em `src/config/site.ts`
+
+Cidade (Campinas – SP), WhatsApp (19) 99920-4440, e-mail `atendimento@formily.com.br`, horários (seg–sex 9h–18h, sáb 8h–12h), razão social, CNPJ e responsável técnica (rodapé). As variáveis `NEXT_PUBLIC_*` continuam sobrescrevendo esses valores.
+
+Pendências: UF do CRF (assumido SP), e-mail de privacidade (usa o de atendimento), endereço completo (rua/nº/CEP; oculto até informado), fotos da equipe (`team.members[].photo`), ilustração da área "Emagrecimento e saúde metabólica" (`careAreas`), textos jurídicos `[PREENCHER]`, `NEXT_PUBLIC_SITE_URL=https://formily.com.br` no deploy. Não afirmar licença sanitária (VISA em deferimento).

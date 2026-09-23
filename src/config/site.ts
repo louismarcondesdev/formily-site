@@ -32,9 +32,9 @@ export const site = {
   /** Domínio público. Defina NEXT_PUBLIC_SITE_URL em produção (canonical, sitemap, OG, JSON-LD). */
   url: env("NEXT_PUBLIC_SITE_URL") ?? "http://localhost:3000",
   urlIsConfigured: Boolean(env("NEXT_PUBLIC_SITE_URL")),
-  title: "Formily Farmácia de Manipulação | Cuidado personalizado em São Paulo",
+  title: "Formily Farmácia de Manipulação | Cuidado personalizado em Campinas",
   description:
-    "Farmácia de manipulação em São Paulo com atendimento personalizado, precisão técnica e cuidado em cada etapa. Solicite seu orçamento pelo WhatsApp.",
+    "Farmácia de manipulação em Campinas com atendimento personalizado, precisão técnica e cuidado em cada etapa. Solicite seu orçamento pelo WhatsApp.",
   locale: "pt_BR",
 } as const;
 
@@ -44,11 +44,11 @@ export const site = {
  * claramente identificável (PREENCHER_NUMERO_WHATSAPP).
  */
 export const whatsapp = {
-  number: env("NEXT_PUBLIC_WHATSAPP_NUMBER"),
+  number: env("NEXT_PUBLIC_WHATSAPP_NUMBER") ?? "5519999204440",
   defaultMessage:
     "Olá! Gostaria de solicitar um orçamento na Formily Farmácia de Manipulação.",
   /** Número formatado para exibição (opcional). */
-  display: env("NEXT_PUBLIC_WHATSAPP_DISPLAY") ?? null,
+  display: env("NEXT_PUBLIC_WHATSAPP_DISPLAY") ?? "(19) 99920-4440",
 };
 
 const latitude = coordinate("NEXT_PUBLIC_MAP_LATITUDE", 90) ?? -22.925729;
@@ -66,10 +66,12 @@ export const contact = {
   addressLine1: env("NEXT_PUBLIC_CONTACT_ADDRESS_1") ?? null,
   addressLine2: env("NEXT_PUBLIC_CONTACT_ADDRESS_2") ?? null, // ex.: "Campinas – SP, 13000-000"
   phone: env("NEXT_PUBLIC_CONTACT_PHONE") ?? null,
-  email: env("NEXT_PUBLIC_CONTACT_EMAIL") ?? null,
-  privacyEmail: env("NEXT_PUBLIC_CONTACT_PRIVACY_EMAIL") ?? null,
+  email: env("NEXT_PUBLIC_CONTACT_EMAIL") ?? "atendimento@formily.com.br",
+  // Briefing não informa canal de privacidade: usa o e-mail de atendimento (confirmar com a Formily).
+  privacyEmail: env("NEXT_PUBLIC_CONTACT_PRIVACY_EMAIL") ?? "atendimento@formily.com.br",
   /** Texto exibido, ex.: "Segunda a sexta, das 8h às 18h". */
-  openingHours: env("NEXT_PUBLIC_CONTACT_HOURS") ?? null,
+  openingHours:
+    env("NEXT_PUBLIC_CONTACT_HOURS") ?? "Segunda a sexta, das 9h às 18h · Sábado, das 8h às 12h",
   /** URL "Abrir rota" do Google Maps. Padrão: rota para as coordenadas da unidade; a env sobrescreve. */
   directionsUrl:
     env("NEXT_PUBLIC_MAPS_DIRECTIONS_URL") ??
@@ -89,10 +91,11 @@ export const contact = {
     `https://www.google.com/maps?q=${latitude},${longitude}&z=16&hl=pt-BR&output=embed`,
   /** Dados legais: só são exibidos no rodapé se TODOS de cada grupo estiverem preenchidos. */
   legal: {
-    legalName: null as string | null,
-    cnpj: null as string | null,
-    pharmacistName: null as string | null,
-    pharmacistCrf: null as string | null, // ex.: "CRF-SP 00000"
+    // Não afirmar licença/alvará sanitário: VISA com deferimento em andamento (briefing).
+    legalName: "SOUZA EMILIANO FARMACIA DE MANIPULACAO LTDA" as string | null,
+    cnpj: "56.045.245/0001-90" as string | null,
+    pharmacistName: "Dayene Souza Emiliano" as string | null,
+    pharmacistCrf: "CRF-SP 66.834" as string | null, // UF SP assumida (confirmar com a Formily)
   },
   /** Redes sociais oficiais e ativas: { label: "Instagram", href: "https://..." }. Vazio = não exibe. */
   socialLinks: [] as { label: string; href: string }[],
@@ -101,18 +104,19 @@ export const contact = {
     streetAddress: null as string | null,
     city: null as string | null,
     postalCode: null as string | null,
-    openingHours: null as string[] | null, // ex.: ["Mo-Fr 08:00-18:00"]
+    openingHours: ["Mo-Fr 09:00-18:00", "Sa 08:00-12:00"] as string[] | null,
   },
 };
 
 /** Verdadeiro se o valor do negócio existe (não vazio e não é placeholder). Use antes de renderizar. */
 export const hasBusinessValue = isFilled;
 
-/** "Cidade – UF" curto (ex.: "São Paulo – SP"). */
+/** "Cidade – UF" curto (ex.: "Campinas – SP"). */
 export const cityState = `${contact.city} – ${contact.state}`;
 
 export const nav = [
   { label: "A Formily", href: "/#a-formily" },
+  { label: "Equipe", href: "/#equipe" },
   { label: "Como funciona", href: "/#como-funciona" },
   { label: "Nossos cuidados", href: "/#nossos-cuidados" },
   { label: "Dúvidas", href: "/#duvidas" },
@@ -126,13 +130,13 @@ export const legalLinks = [
 ] as const;
 
 export const topBarMessages = [
-  "Atendimento personalizado em São Paulo",
+  "Atendimento personalizado em Campinas",
   "Envie sua receita pelo WhatsApp",
   "Consulte a equipe sobre retirada e modalidades de entrega.",
 ] as const;
 
 export const hero = {
-  eyebrow: "Farmácia de manipulação em São Paulo",
+  eyebrow: "Farmácia de manipulação em Campinas",
   title: "Sua fórmula é única. Seu cuidado também.",
   text: "Cada preparo é desenvolvido com precisão técnica, matérias-primas selecionadas e atenção às necessidades de cada paciente.",
   primaryCta: "Enviar receita pelo WhatsApp",
@@ -212,13 +216,17 @@ export const careAreas = {
   subtitle:
     "Converse com nossa equipe sobre as possibilidades de atendimento para sua prescrição.",
   items: [
-    { label: "Saúde e bem-estar", icon: "leaf", enabled: true, confirmed: false },
-    { label: "Nutrição e performance", icon: "activity", enabled: true, confirmed: false, image: "/images/hero_carrossel/care-nutricao-performance.webp" },
-    { label: "Pele e cabelos", icon: "sparkles", enabled: true, confirmed: false, image: "/images/hero_carrossel/care-pele-cabelos.webp" },
-    { label: "Sono e rotina", icon: "moon", enabled: true, confirmed: false, image: "/images/hero_carrossel/care-sono-rotina.webp" },
-    { label: "Saúde da mulher", icon: "flower", enabled: true, confirmed: false, image: "/images/hero_carrossel/care-saude-mulher.webp" },
+    // Foco do briefing: emagrecimento, saúde metabólica, longevidade, bem-estar e performance (sem limitar ao público esportivo).
+    // TODO(imagem): criar ilustração de "Emagrecimento e saúde metabólica" em public/images/hero_carrossel/ e informar `image` (entra no carrossel do hero).
+    { label: "Emagrecimento e saúde metabólica", icon: "gauge", enabled: true, confirmed: true },
+    { label: "Longevidade", icon: "hourglass", enabled: true, confirmed: true, image: "/images/hero_carrossel/care-longevidade.webp" },
+    { label: "Nutrição e performance", icon: "activity", enabled: true, confirmed: true, image: "/images/hero_carrossel/care-nutricao-performance.webp" },
+    { label: "Saúde e bem-estar", icon: "leaf", enabled: true, confirmed: true },
+    { label: "Pele e cabelos", icon: "sparkles", enabled: true, confirmed: true, image: "/images/hero_carrossel/care-pele-cabelos.webp" },
+    { label: "Sono e rotina", icon: "moon", enabled: true, confirmed: true, image: "/images/hero_carrossel/care-sono-rotina.webp" },
+    // Fora do briefing: mantidas desabilitadas.
+    { label: "Saúde da mulher", icon: "flower", enabled: false, confirmed: false, image: "/images/hero_carrossel/care-saude-mulher.webp" },
     { label: "Saúde do homem", icon: "compass", enabled: false, confirmed: false, image: "/images/hero_carrossel/care-saude-homem.webp" },
-    { label: "Longevidade", icon: "hourglass", enabled: false, confirmed: false, image: "/images/hero_carrossel/care-longevidade.webp" },
     { label: "Cuidado veterinário", icon: "paw", enabled: false, confirmed: false, image: "/images/hero_carrossel/care-veterinario.webp" },
   ],
 } as const;
@@ -229,6 +237,32 @@ export const about = {
     "A Formily nasceu da união entre propósito, cuidado e família. Acreditamos que a saúde não deve ser tratada de forma genérica, porque cada pessoa vive uma história, uma rotina e necessidades próprias.",
     "Nosso nome une Form, de fórmula, a ily, inspirado em family. Ele representa o encontro entre a excelência da manipulação magistral e o cuidado próximo que queremos oferecer em cada relação.",
     "Mais do que preparar fórmulas, buscamos acolher pessoas, compreender necessidades e atuar com precisão, ética e responsabilidade em todas as etapas do atendimento.",
+  ],
+} as const;
+
+/** Equipe (bios do briefing). `photo: null` mostra avatar com iniciais; informe /images/... quando as fotos chegarem. */
+export const team = {
+  title: "Conheça quem cuida da sua fórmula.",
+  subtitle: "Uma equipe próxima, com farmacêuticos à frente da análise da prescrição e da orientação ao paciente.",
+  members: [
+    {
+      name: "Rodrigo dos Santos Emiliano",
+      role: "Sócio-proprietário",
+      bio: "Farmacêutico formado pela Universidade São Francisco (USF) e sócio proprietário da Formily. Acredito que cuidar da saúde também é construir relações de confiança e proximidade. Meu compromisso é contribuir para que cada pessoa que faça parte da nossa história se sinta acolhida e bem cuidada, refletindo os valores e o propósito que nos inspiraram a tornar esse sonho em realidade.",
+      photo: null as string | null,
+    },
+    {
+      name: "Dayene Priscila de Almeida Souza Emiliano",
+      role: "Farmacêutica responsável técnica",
+      bio: "Farmacêutica formada pela Universidade São Francisco (USF), atuo há 14 anos na área farmacêutica e acredito que cuidar da saúde vai muito além da manipulação de fórmulas. Meu compromisso é oferecer um olhar individualizado, aliando excelência técnica, segurança e proximidade para desenvolver soluções personalizadas que acompanhem cada paciente em sua jornada de cuidado e bem-estar.",
+      photo: null as string | null,
+    },
+    {
+      name: "Gabryelle de Almeida Souza",
+      role: "Social media",
+      bio: "Responsável pela estratégia e presença digital da Formily, atuando no planejamento, criação de conteúdo e posicionamento da marca. Trabalha para transformar a essência da farmácia em uma comunicação estratégica, humana e próxima do público.",
+      photo: null as string | null,
+    },
   ],
 } as const;
 
@@ -275,7 +309,7 @@ export const faq = {
     },
     {
       q: "Onde fica a Formily?",
-      a: "Atendemos em São Paulo. O endereço completo e os horários estão na seção de contato desta página.",
+      a: "Atendemos em Campinas, na região do Parque Universitário e Jardim Shangai. O mapa, a rota e os horários estão na seção de contato desta página.",
     },
   ],
 } as const;
@@ -284,7 +318,7 @@ export const finalCta = {
   title: "Seu cuidado pode começar por uma conversa.",
   text: "Envie sua receita ou fale com a nossa equipe para solicitar seu orçamento de forma simples, segura e personalizada.",
   cta: "Falar no WhatsApp",
-  support: "Atendimento em São Paulo • Consulte horários e modalidades de retirada ou entrega",
+  support: "Atendimento em Campinas • Consulte horários e modalidades de retirada ou entrega",
 } as const;
 
 export const footer = {

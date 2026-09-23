@@ -4,6 +4,7 @@ import {
   Compass,
   Flower2,
   FlaskConical,
+  Gauge,
   HeartHandshake,
   Hourglass,
   Leaf,
@@ -53,6 +54,7 @@ const map: Record<string, LucideIcon> = {
   compass: Compass,
   hourglass: Hourglass,
   paw: PawPrint,
+  gauge: Gauge,
 };
 
 export function NamedIcon({ name, className }: { name: string; className?: string }) {

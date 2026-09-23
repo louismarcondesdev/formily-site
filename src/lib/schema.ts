@@ -11,7 +11,7 @@ export function buildLocalBusinessSchema(): Record<string, unknown> {
     "@type": ["Pharmacy", "LocalBusiness"],
     name: site.name,
     description: site.description,
-    areaServed: { "@type": "AdministrativeArea", name: "São Paulo" },
+    areaServed: { "@type": "AdministrativeArea", name: "Campinas" },
   };
   if (site.urlIsConfigured) data.url = site.url;
   if (isFilled(contact.phone)) data.telephone = contact.phone;

@@ -1,5 +1,5 @@
 import type { LegalSection } from "@/components/formily/LegalPage";
-import { contact } from "@/config/site";
+import { cityState, contact } from "@/config/site";
 
 /** Conteúdo inicial — sujeito à validação jurídica/LGPD antes da publicação definitiva. */
 
@@ -11,7 +11,7 @@ export const privacy = {
   sections: [
     {
       title: "1. Quem é o controlador",
-      body: <p>{contact.companyName}. Dados da empresa (razão social, CNPJ e endereço): [PREENCHER: DADOS DO CONTROLADOR].</p>,
+      body: <p>{contact.companyName}. Razão social: {contact.legal.legalName}, CNPJ {contact.legal.cnpj}, {cityState}.</p>,
     },
     {
       title: "2. Quais informações podem ser tratadas",

@@ -5,6 +5,7 @@ import { CareValuesSection } from "@/components/formily/CareValuesSection";
 import { ProcessSection } from "@/components/formily/ProcessSection";
 import { CareAreasSection } from "@/components/formily/CareAreasSection";
 import { AboutSection } from "@/components/formily/AboutSection";
+import { TeamSection } from "@/components/formily/TeamSection";
 import { StructureSection } from "@/components/formily/StructureSection";
 import { FaqSection } from "@/components/formily/FaqSection";
 import { FinalCtaSection } from "@/components/formily/FinalCtaSection";
@@ -25,6 +26,7 @@ export default function Home() {
         <ProcessSection />
         <CareAreasSection />
         <AboutSection />
+        <TeamSection />
         <StructureSection />
         <FaqSection />
         <FinalCtaSection />

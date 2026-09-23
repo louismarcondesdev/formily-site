@@ -5,7 +5,7 @@ import { ImagePlaceholder } from "./ImagePlaceholder";
 
 export function StructureSection() {
   return (
-    <section aria-labelledby="estrutura-title" className="bg-surface-50 py-20 lg:py-28">
+    <section aria-labelledby="estrutura-title" className="bg-white py-20 lg:py-28">
       <Container>
         <SectionHeading id="estrutura-title" title={structure.title} subtitle={structure.text} />
 
