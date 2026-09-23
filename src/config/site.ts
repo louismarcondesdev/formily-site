@@ -188,11 +188,11 @@ export const howItWorks = {
   steps: [
     {
       title: "Envie sua receita",
-      text: "Compartilhe sua prescrição pelo WhatsApp ou fale com nossa equipe para tirar dúvidas.",
+      text: "Compartilhe sua prescrição pelo WhatsApp ou fale com nosso farmacêutico",
     },
     {
       title: "Receba seu orçamento",
-      text: "Nossa equipe analisa as informações necessárias e retorna com as orientações para o seu pedido.",
+      text: "Analisamos as informações necessárias e retornamos com as orientações personalizadas para o seu pedido.",
     },
     {
       title: "Aprove seu pedido",
@@ -200,7 +200,7 @@ export const howItWorks = {
     },
     {
       title: "Retire ou receba",
-      text: "Consulte a equipe sobre retirada na unidade ou modalidades de entrega disponíveis para sua região.",
+      text: "Retire presencialmente ou receba diretamente no conforto da sua casa",
     },
   ],
   cta: "Quero solicitar meu orçamento",
@@ -257,7 +257,7 @@ export const team = {
       name: "Dayene Priscila de Almeida Souza Emiliano",
       role: "Farmacêutica responsável técnica",
       bio: "Farmacêutica formada pela Universidade São Francisco (USF), atuo há 14 anos na área farmacêutica e acredito que cuidar da saúde vai muito além da manipulação de fórmulas. Meu compromisso é oferecer um olhar individualizado, aliando excelência técnica, segurança e proximidade para desenvolver soluções personalizadas que acompanhem cada paciente em sua jornada de cuidado e bem-estar.",
-      photo: null as string | null,
+      photo: "/images/day.webp" as string | null,
     },
     {
       name: "Gabryelle de Almeida Souza",
