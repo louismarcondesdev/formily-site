@@ -21,5 +21,10 @@
   },
   "menuColor": "default",
   "menuAccent": "subtle",
-  "registries": {}
+  "registries": {
+    "@000h-cojeev": "https://000h.cojeev.com/r/{name}.json",
+    "@1st-pouf": "https://1st-pouf.worksonmy.dev/r/{name}.json",
+    "@23rd": "https://23rd.dev/r/{name}.json",
+    "@7ovr": "https://7ovr.com/r/{name}.json"
+  }
 }

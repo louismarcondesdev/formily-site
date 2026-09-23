@@ -158,3 +158,15 @@ Edit the canonical skill directly. There are no generated platform copies or syn
 ## License
 
 MIT
+
+---
+
+## Site institucional Formily
+
+Este repositório contém o site institucional da **Formily Farmácia de Manipulação** (Next.js 16, Tailwind v4). Foco: iniciar o atendimento/orçamento pelo WhatsApp; não há catálogo, preços ou divulgação de fórmulas.
+
+- Contato, mapa, rodapé e checklist de publicação: [`docs/FORMILY_CONTACT_SETUP.md`](docs/FORMILY_CONTACT_SETUP.md)
+- Paleta semântica, regras de botões e contraste: [`docs/FORMILY_DESIGN_TOKENS.md`](docs/FORMILY_DESIGN_TOKENS.md)
+- Configuração, placeholders `[PREENCHER]`, WhatsApp, mapa, SEO: [`docs/FORMILY_SETUP.md`](docs/FORMILY_SETUP.md)
+- Imagens (slots, arquivos, prompts, fotos reais obrigatórias): [`docs/FORMILY_IMAGE_BRIEF.md`](docs/FORMILY_IMAGE_BRIEF.md)
+- Conteúdo central: `src/config/site.ts`

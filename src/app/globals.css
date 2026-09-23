@@ -7,8 +7,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -39,6 +39,28 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-fm-indigo: var(--formily-indigo);
+  --color-fm-green: var(--formily-green);
+  --color-fm-cyan: var(--formily-cyan);
+  --color-fm-mint: var(--formily-mint);
+  --color-fm-ink: var(--formily-ink);
+  --color-fm-surface: var(--formily-surface);
+  --color-fm-muted: var(--formily-muted);
+  --color-fm-line: var(--formily-line);
+  --color-fm-mint-soft: var(--formily-mint-soft);
+  --color-fm-green-dark: var(--formily-green-dark);
+  --color-brand-950: var(--brand-950);
+  --color-brand-800: var(--brand-800);
+  --color-brand-50: var(--brand-50);
+  --color-action-600: var(--action-600);
+  --color-action-700: var(--action-700);
+  --color-action-50: var(--action-50);
+  --color-care-700: var(--care-700);
+  --color-care-50: var(--care-50);
+  --color-surface-50: var(--surface-50);
+  --color-border-subtle: var(--border-subtle);
+  --shadow-soft: 0 1px 2px rgb(32 32 58 / 0.03), 0 6px 18px -8px rgb(48 38 110 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(32 32 58 / 0.04), 0 16px 32px -16px rgb(48 38 110 / 0.16);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -49,13 +71,42 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  /* Paleta Formily (inspirada no logo) */
+  --formily-indigo: #30266e;
+  --formily-green: #59bf84;
+  --formily-cyan: #36b9e2;
+  --formily-mint: #90dfa7;
+  --formily-ink: #20203a;
+  --formily-surface: #f7fafa;
+  --formily-white: #ffffff;
+  --formily-muted: #5e6074; /* = --text-650 (6,2:1 sobre branco) */
+  --formily-line: #e3e8ee;
+  --formily-mint-soft: #e9f8ee;
+  --formily-green-dark: #1d6b43; /* texto verde acessível sobre menta claro */
+
+  /* Tokens semânticos (ver docs/FORMILY_DESIGN_TOKENS.md) */
+  --brand-950: #26205e; /* títulos, autoridade */
+  --brand-800: #342a78;
+  --brand-50: #f1f0fa;
+  --action-600: #0880a6; /* ÚNICO fundo de CTA primário (branco sobre ele: 4,5:1) */
+  --action-700: #06779c; /* hover do CTA primário (5,1:1) */
+  --action-50: #e8f8fc;
+  --care-700: #21734e; /* acolhimento / confirmação */
+  --care-50: #edf9f1;
+  --surface-0: #ffffff;
+  --surface-50: #f7f8fa;
+  --border-subtle: #e4e7ec;
+  --text-950: #24213a;
+  --text-650: #5e6074;
+  --text-500: #74768a; /* metadados não essenciais (4,5:1 sobre branco: limite) */
+
+  --background: #ffffff;
+  --foreground: var(--formily-ink);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: var(--formily-indigo);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -72,7 +123,7 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  --radius: 1rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -126,5 +177,148 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  h1, h2, h3 {
+    color: var(--brand-950);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 3px solid var(--formily-cyan);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@keyframes fm-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fm-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@utility animate-fm-fade-up {
+  animation: fm-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+/* Componentes de marca. Ficam em @media all (fora do scanner de classes do Tailwind). Regras de uso: docs/FORMILY_DESIGN_TOKENS.md */
+@media all {
+  /* Fundo da hero: brilhos suaves (menta e ciano) sobre branco. */
+  .hero {
+    background:
+      radial-gradient(55% 55% at 84% 30%, rgba(144, 223, 167, 0.18) 0%, rgba(144, 223, 167, 0) 72%),
+      radial-gradient(42% 44% at 12% 88%, rgba(54, 185, 226, 0.1) 0%, rgba(54, 185, 226, 0) 70%),
+      #ffffff;
+  }
+  .hero-title {
+    max-width: 920px;
+    font-size: clamp(3rem, 5.4vw, 5.8rem);
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+    font-weight: 700;
+  }
+
+  /* Header flutuante. .is-sticky = rolado: mais opaco, sombra curta e borda inferior quase imperceptível. */
+  .site-header {
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(48, 38, 110, 0.08);
+    box-shadow: 0 10px 30px rgba(34, 31, 70, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .site-header.is-sticky {
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom-color: rgba(48, 38, 110, 0.12);
+    box-shadow: 0 10px 24px rgba(34, 31, 70, 0.1);
+  }
+
+  /* Caixa "Ainda tem alguma dúvida?" do FAQ. */
+  .faq-help {
+    background: var(--surface-50);
+    border: 1px solid var(--border-subtle);
+    border-left: 4px solid var(--formily-green);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(36, 33, 58, 0.05);
+  }
+
+  /* CTA final: índigo profundo com um único brilho de ação e um toque de verde. */
+  .final-cta {
+    background:
+      radial-gradient(42% 95% at 92% 82%, rgba(7, 138, 182, 0.42) 0%, rgba(7, 138, 182, 0) 68%),
+      radial-gradient(38% 70% at 8% 10%, rgba(89, 191, 132, 0.1) 0%, rgba(89, 191, 132, 0) 70%),
+      linear-gradient(125deg, #26205e 0%, #30266e 56%, #29366d 100%);
+  }
+
+  /* CTA primário (único preenchido dominante). Fundo --action-600, texto branco. */
+  .btn-primary,
+  .btn-on-cta {
+    background: var(--action-600);
+    color: #ffffff;
+    border: 1px solid transparent;
+    box-shadow: 0 8px 20px rgba(7, 138, 182, 0.16);
+    transition: background-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover,
+  .btn-on-cta:hover {
+    background: var(--action-700);
+    box-shadow: 0 12px 24px rgba(7, 138, 182, 0.22);
+  }
+  .btn-primary:focus-visible,
+  .btn-on-cta:focus-visible {
+    outline: 3px solid rgba(89, 191, 132, 0.55);
+    outline-offset: 3px;
+  }
+  /* Sobre o índigo do CTA final o botão ganha um filete claro para separar do fundo. */
+  .btn-on-cta {
+    border-color: rgba(255, 255, 255, 0.28);
+  }
+
+  /* CTA secundário (raio 14–16px, aplicado no componente). */
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid #cac8d9;
+    color: var(--brand-950);
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  .btn-secondary:hover {
+    background: var(--brand-50);
+    border-color: var(--brand-950);
+  }
+  .btn-secondary:focus-visible {
+    outline: 3px solid rgba(89, 191, 132, 0.55);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .btn-primary:hover,
+    .btn-on-cta:hover {
+      transform: translateY(-1px);
+    }
+  }
+}
+
+@utility animate-fm-float {
+  animation: fm-float 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fm-fade-up,
+  .animate-fm-float {
+    animation: none !important;
+  }
+  * {
+    transition-duration: 0.01ms !important;
   }
 }
