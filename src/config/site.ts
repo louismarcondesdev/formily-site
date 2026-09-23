@@ -6,6 +6,8 @@
  * Nada aqui deve ser inventado: preencha apenas com dados fornecidos pela Formily.
  */
 
+import type { Testimonial } from "@/components/ui/testimonials-columns-1";
+
 export const PLACEHOLDER_MARK = "[PREENCHER";
 
 /** Verdadeiro somente se o valor existe e não é um placeholder. */
@@ -265,6 +267,16 @@ export const team = {
     },
   ],
 } as const;
+
+/**
+ * Depoimentos REAIS e autorizados por escrito (briefing: nenhum ainda). Vazio = a seção não é exibida.
+ * Nunca usar textos de exemplo. Depoimento não pode citar ativo/indicação terapêutica (RDC).
+ */
+export const testimonials = {
+  title: "O que dizem sobre a Formily",
+  subtitle: "Relatos de quem já foi atendido pela nossa equipe.",
+  items: [] as Testimonial[],
+};
 
 export const structure = {
   title: "Confiança se constrói em cada detalhe.",
