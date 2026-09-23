@@ -3,11 +3,16 @@ import { Reveal } from "@/components/ui/scroll-reveal";
 import { Timeline } from "@/components/ui/timeline";
 import { Container, SectionHeading } from "./Section";
 import { WhatsAppButton } from "./WhatsAppButton";
+import { LinkedText } from "./LinkedText";
 
 export function ProcessSection() {
   const data = proc.steps.map((s) => ({
     title: s.title,
-    content: <p className="text-lg leading-relaxed text-fm-muted">{s.text}</p>,
+    content: (
+      <p className="text-lg leading-relaxed text-fm-muted">
+        <LinkedText text={s.text} linkLabel={"linkLabel" in s ? s.linkLabel : undefined} event="whatsapp_click_process" />
+      </p>
+    ),
   }));
 
   return (

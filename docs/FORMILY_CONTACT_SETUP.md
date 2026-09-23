@@ -7,8 +7,8 @@ Edite o valor em `contact` **ou** defina a variável de ambiente (Vercel/`.env.l
 
 | Dado | Campo | Variável |
 |---|---|---|
-| WhatsApp (DDI+DDD+número, só dígitos, ex. `5511999999999`) | `whatsapp.number` | `NEXT_PUBLIC_WHATSAPP_NUMBER` |
-| WhatsApp formatado (opcional) | `whatsapp.display` | `NEXT_PUBLIC_WHATSAPP_DISPLAY` |
+| WhatsApp (fixo: +55 19 99920-4440, sem variável de ambiente) | `whatsapp.number` | — |
+| WhatsApp formatado | `whatsapp.display` | — |
 | Endereço (linha 1 / linha 2) | `addressLine1` / `addressLine2` | `NEXT_PUBLIC_CONTACT_ADDRESS_1` / `_2` |
 | Telefone | `phone` | `NEXT_PUBLIC_CONTACT_PHONE` |
 | E-mail | `email` | `NEXT_PUBLIC_CONTACT_EMAIL` |

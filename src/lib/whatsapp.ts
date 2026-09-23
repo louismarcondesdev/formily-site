@@ -7,7 +7,7 @@ export const isWhatsAppConfigured = Boolean(whatsapp.number);
 
 /**
  * Monta a URL wa.me com mensagem pré-preenchida.
- * Sem NEXT_PUBLIC_WHATSAPP_NUMBER, retorna uma URL placeholder identificável.
+ * O número é fixo em `whatsapp.number` (src/config/site.ts).
  */
 export function whatsappUrl(message: string = whatsapp.defaultMessage): string {
   const number = whatsapp.number?.replace(/\D/g, "") || WHATSAPP_PLACEHOLDER_NUMBER;

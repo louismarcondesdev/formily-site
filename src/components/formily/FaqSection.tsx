@@ -2,6 +2,7 @@ import { MessageCircle } from "lucide-react";
 import { faq } from "@/config/site";
 import { Faqs01 } from "@/components/ui/faqs-01";
 import { Container } from "./Section";
+import { LinkedText } from "./LinkedText";
 import { WhatsAppButton } from "./WhatsAppButton";
 
 function FaqHelpCard() {
@@ -14,7 +15,7 @@ function FaqHelpCard() {
         <div className="flex flex-col leading-snug">
           <p className="text-base font-bold text-fm-indigo">Ainda tem alguma dúvida?</p>
           <p className="text-sm text-fm-muted">
-            Fale com a nossa equipe pelo WhatsApp. Não oferecemos aconselhamento médico.
+            Fale com a nossa equipe pelo WhatsApp.
           </p>
         </div>
       </div>
@@ -25,11 +26,16 @@ function FaqHelpCard() {
   );
 }
 
+const items = faq.items.map((f) => ({
+  q: f.q,
+  a: <LinkedText text={f.a} linkLabel={"linkLabel" in f ? f.linkLabel : undefined} event="whatsapp_click_faq" />,
+}));
+
 export function FaqSection() {
   return (
     <section id="duvidas" aria-labelledby="faq-title" className="scroll-mt-24 bg-surface-50 py-20 lg:py-28">
       <Container>
-        <Faqs01 id="faq-title" title={faq.title} items={faq.items} defaultValue="item-0" footer={<FaqHelpCard />} />
+        <Faqs01 id="faq-title" title={faq.title} items={items} defaultValue="item-0" footer={<FaqHelpCard />} />
       </Container>
     </section>
   );

@@ -25,7 +25,6 @@ export function FinalCtaSection() {
               {finalCta.cta}
             </WhatsAppButton>
           </RevealItem>
-          <RevealItem as="p" className="mx-auto mt-6 max-w-xl text-sm text-white">{finalCta.support}</RevealItem>
         </RevealGroup>
       </Container>
     </section>

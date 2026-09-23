@@ -41,20 +41,27 @@ export const site = {
 } as const;
 
 /**
- * WhatsApp. Configure NEXT_PUBLIC_WHATSAPP_NUMBER com DDI+DDD+número, só dígitos
- * (ex.: 5511999999999). Sem a variável, os botões usam uma URL placeholder
- * claramente identificável (PREENCHER_NUMERO_WHATSAPP).
+ * WhatsApp oficial: +55 19 99920-4440. Fixo no código (sem variável de ambiente) para que
+ * todos os botões e links enviem sempre para este número. Formato: DDI+DDD+número, só dígitos.
  */
 export const whatsapp = {
-  number: env("NEXT_PUBLIC_WHATSAPP_NUMBER") ?? "5519999204440",
+  number: "5519999204440",
   defaultMessage:
     "Olá! Gostaria de solicitar um orçamento na Formily Farmácia de Manipulação.",
   /** Número formatado para exibição (opcional). */
-  display: env("NEXT_PUBLIC_WHATSAPP_DISPLAY") ?? "(19) 99920-4440",
+  display: "(19) 99920-4440",
 };
 
-const latitude = coordinate("NEXT_PUBLIC_MAP_LATITUDE", 90) ?? -22.925729;
-const longitude = coordinate("NEXT_PUBLIC_MAP_LONGITUDE", 180) ?? -47.050642;
+const addressLine1 = env("NEXT_PUBLIC_CONTACT_ADDRESS_1") ?? "Avenida Ruy Rodrigues, 4440";
+const addressLine2 = env("NEXT_PUBLIC_CONTACT_ADDRESS_2") ?? "Parque Universitário de Viracopos";
+
+// Coordenadas só existem se definidas por env (nunca inventadas). Sem elas, mapa e rota usam o endereço.
+const latitude = coordinate("NEXT_PUBLIC_MAP_LATITUDE", 90);
+const longitude = coordinate("NEXT_PUBLIC_MAP_LONGITUDE", 180);
+const mapPlace =
+  latitude !== null && longitude !== null
+    ? `${latitude},${longitude}`
+    : encodeURIComponent([addressLine1, addressLine2, "Campinas - SP"].join(", "));
 
 /**
  * Dados do negócio (fonte única para conteúdo exibido e JSON-LD).
@@ -65,8 +72,8 @@ export const contact = {
   companyName: site.name,
   city: "Campinas",
   state: "SP",
-  addressLine1: env("NEXT_PUBLIC_CONTACT_ADDRESS_1") ?? null,
-  addressLine2: env("NEXT_PUBLIC_CONTACT_ADDRESS_2") ?? null, // ex.: "Campinas – SP, 13000-000"
+  addressLine1,
+  addressLine2,
   phone: env("NEXT_PUBLIC_CONTACT_PHONE") ?? null,
   email: env("NEXT_PUBLIC_CONTACT_EMAIL") ?? "atendimento@formily.com.br",
   // Briefing não informa canal de privacidade: usa o e-mail de atendimento (confirmar com a Formily).
@@ -74,23 +81,23 @@ export const contact = {
   /** Texto exibido, ex.: "Segunda a sexta, das 8h às 18h". */
   openingHours:
     env("NEXT_PUBLIC_CONTACT_HOURS") ?? "Segunda a sexta, das 9h às 18h · Sábado, das 8h às 12h",
-  /** URL "Abrir rota" do Google Maps. Padrão: rota para as coordenadas da unidade; a env sobrescreve. */
+  /** URL "Abrir rota" do Google Maps. Padrão: rota para o endereço da unidade; a env sobrescreve. */
   directionsUrl:
     env("NEXT_PUBLIC_MAPS_DIRECTIONS_URL") ??
-    `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`,
+    `https://www.google.com/maps/dir/?api=1&destination=${mapPlace}`,
   /**
    * Coordenadas da unidade (NEXT_PUBLIC_MAP_LATITUDE / NEXT_PUBLIC_MAP_LONGITUDE, graus decimais).
-   * Padrão: coordenadas do link do Google Maps informado pela Formily (https://maps.app.goo.gl/DvonaAPJwjyaoNy47).
+   * Opcionais: sem elas o mapa e a rota usam o endereço e o JSON-LD não emite `geo`.
    */
   latitude,
   longitude,
   /**
-   * Embed do Google Maps (sem API key). Padrão: gerado das coordenadas acima.
+   * Embed do Google Maps (sem API key). Padrão: gerado do endereço (ou das coordenadas, se definidas).
    * NEXT_PUBLIC_MAPS_EMBED_URL sobrescreve (Compartilhar > Incorporar um mapa > copiar o src do iframe).
    */
   mapsEmbedUrl:
     env("NEXT_PUBLIC_MAPS_EMBED_URL") ??
-    `https://www.google.com/maps?q=${latitude},${longitude}&z=16&hl=pt-BR&output=embed`,
+    `https://www.google.com/maps?q=${mapPlace}&z=16&hl=pt-BR&output=embed`,
   /** Dados legais: só são exibidos no rodapé se TODOS de cada grupo estiverem preenchidos. */
   legal: {
     // Não afirmar licença/alvará sanitário: VISA com deferimento em andamento (briefing).
@@ -188,7 +195,8 @@ export const howItWorks = {
   steps: [
     {
       title: "Envie sua receita",
-      text: "Compartilhe sua prescrição pelo WhatsApp ou fale com nosso farmacêutico",
+      text: "Compartilhe sua prescrição pelo WhatsApp ou clicando aqui, e se necessário fale com o nosso farmacêutico",
+      linkLabel: "clicando aqui",
     },
     {
       title: "Receba seu orçamento",
@@ -280,11 +288,12 @@ export const testimonials = {
 
 export const structure = {
   title: "Confiança se constrói em cada detalhe.",
-  text: "Da escuta no atendimento à atenção dedicada aos processos, a Formily foi pensada para unir acolhimento, precisão e responsabilidade farmacêutica.",
+  text: "Da escuta no atendimento à atenção dedicada aos processos, a Formily foi pensada para unir acolhimento, personalização, precisão e responsabilidade farmacêutica.",
   bullets: [
     "Atendimento próximo e respeitoso",
     "Processos orientados por critérios técnicos",
     "Compromisso com qualidade e segurança",
+    "Fórmulas personalizadas",
   ],
 } as const;
 
@@ -293,44 +302,48 @@ export const faq = {
   items: [
     {
       q: "Como solicito um orçamento?",
-      a: "Pelo WhatsApp: envie sua receita ou fale com a nossa equipe e informe o que precisa. Nossa equipe orientará você pelo WhatsApp sobre as próximas etapas.",
+      a: "Pelo WhatsApp envie sua receita ou clique aqui.",
+      linkLabel: "clique aqui",
     },
     {
       q: "Posso enviar minha receita pelo WhatsApp?",
       a: "Sim, o WhatsApp é o nosso canal para iniciar o atendimento. As informações compartilhadas são tratadas com cuidado e conforme a Política de Privacidade.",
     },
     {
+      q: "Não tenho receita",
+      a: "Entre em contato pelo WhatsApp com a nossa equipe, e o farmacêutico responsável irá te orientar sobre a fórmula desejada",
+    },
+    {
       q: "Preciso de receita para solicitar uma manipulação?",
-      a: "As exigências variam conforme a preparação e a legislação aplicável. Nossa equipe orientará você pelo WhatsApp sobre o que é necessário no seu caso. Não oferecemos aconselhamento médico: dúvidas sobre tratamento devem ser conversadas com o profissional que prescreveu.",
+      a: "As exigências variam conforme a preparação e a legislação aplicável. Nossa equipe orientará você pelo WhatsApp sobre o que é necessário no seu caso.",
     },
     {
       q: "Posso retirar meu pedido na loja?",
-      a: "Nossa equipe orientará você pelo WhatsApp sobre as opções de retirada disponíveis.",
+      a: "Sim, temos uma loja física a sua disposição, venha conhecer nossa loja",
     },
     {
       q: "Vocês realizam entregas?",
-      a: "Nossa equipe orientará você pelo WhatsApp sobre as modalidades de entrega disponíveis para a sua região, se houver.",
+      a: "Sim, para todo o Brasil, fale com a nossa equipe pelo WhatsApp",
     },
     {
       q: "Como acompanho meu pedido?",
-      a: "Nossa equipe orientará você pelo WhatsApp sobre como acompanhar o andamento do seu pedido.",
+      a: "Nossa equipe está sempre a disposição para falar sobre o status do seu pedido",
     },
     {
       q: "Posso tirar dúvidas com um farmacêutico?",
-      a: "Sim. Fale com a nossa equipe pelo WhatsApp para tirar dúvidas sobre o atendimento e sobre a sua solicitação.",
+      a: "Sim, temos um atendimento farmacêutico personalizado para auxiliar em dúvidas e solicitações",
     },
     {
       q: "Onde fica a Formily?",
-      a: "Atendemos em Campinas, na região do Parque Universitário e Jardim Shangai. O mapa, a rota e os horários estão na seção de contato desta página.",
+      a: "Avenida Ruy Rodrigues, 4440, Parque Universitário de Viracopos",
     },
   ],
 } as const;
 
 export const finalCta = {
   title: "Seu cuidado pode começar por uma conversa.",
-  text: "Envie sua receita ou fale com a nossa equipe para solicitar seu orçamento de forma simples, segura e personalizada.",
-  cta: "Falar no WhatsApp",
-  support: "Atendimento em Campinas • Consulte horários e modalidades de retirada ou entrega",
+  text: "Fale com um dos nossos farmacêuticos, tire suas dúvidas e conheça as possibilidades de personalização da sua fórmula. Estamos aqui para orientá-lo em cada etapa",
+  cta: "Falar com o farmacêutico",
 } as const;
 
 export const footer = {

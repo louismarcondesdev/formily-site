@@ -21,7 +21,7 @@ export function StructureSection() {
           <ImagePlaceholder slot={images.structureLab} todo="área permitida do laboratório" tone="indigo" className="aspect-[4/3] rounded-[24px]" />
         </div>
 
-        <ul className="mx-auto mt-10 flex max-w-4xl flex-col gap-3 sm:flex-row sm:justify-between">
+        <ul className="mx-auto mt-10 grid max-w-5xl gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-4">
           {structure.bullets.map((b) => (
             <li key={b} className="flex items-center gap-2.5 font-semibold text-fm-indigo">
               <CheckCircle2 className="size-5 shrink-0 text-fm-green" aria-hidden="true" />

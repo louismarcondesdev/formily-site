@@ -3,7 +3,7 @@ import { MessageCircle } from "lucide-react";
 import { Reveal } from "@/components/ui/scroll-reveal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-export type FaqItem = { q: string; a: string };
+export type FaqItem = { q: string; a: React.ReactNode };
 
 export function Faqs01({
   id,

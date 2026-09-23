@@ -13,14 +13,12 @@
 | Variável | Uso |
 |---|---|
 | `NEXT_PUBLIC_SITE_URL` | Domínio (canonical, sitemap, robots, OG, JSON-LD). Ex.: `https://formily.com.br` |
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | DDI+DDD+número, só dígitos (ex.: `5511999999999`) |
-| `NEXT_PUBLIC_WHATSAPP_DISPLAY` | Texto exibido do WhatsApp (ex.: `(11) 99999-9999`) |
 | `NEXT_PUBLIC_MAPS_DIRECTIONS_URL` | Link "Abrir rota no Google Maps" |
 | `NEXT_PUBLIC_MAPS_EMBED_URL` | (Opcional) URL de embed do Google Maps (Compartilhar → Incorporar um mapa → copiar o `src` do iframe). Padrão: gerada das coordenadas. Não usa API key |
 | `NEXT_PUBLIC_MAP_LATITUDE` / `NEXT_PUBLIC_MAP_LONGITUDE` | Coordenadas da unidade (padrão: as do link do Google Maps informado pela Formily) |
 
 ## WhatsApp
-Defina `NEXT_PUBLIC_WHATSAPP_NUMBER`. Sem ele, todos os botões apontam para `https://wa.me/PREENCHER_NUMERO_WHATSAPP?text=...` (placeholder identificável). A mensagem padrão está em `whatsapp.defaultMessage`; cada card de área usa `careAreaMessage()`.
+O número é fixo em `whatsapp.number` (`src/config/site.ts`): +55 19 99920-4440. Não há variável de ambiente; todos os botões e links enviam sempre para ele. A mensagem padrão está em `whatsapp.defaultMessage`.
 Eventos: `whatsapp_click_header|hero|process|care_area|final_cta|mobile_sticky` e `directions_click`.
 
 ## Endereço e mapa
@@ -40,11 +38,10 @@ Ver `docs/FORMILY_IMAGE_BRIEF.md`.
 
 ## Antes de ir ao ar (checklist)
 - Definir `NEXT_PUBLIC_SITE_URL` **no build** (é embutida). Sem ela, o `robots.txt` de produção bloqueia a indexação (`Disallow: /`) e canonical/sitemap apontam para localhost.
-- Definir `NEXT_PUBLIC_WHATSAPP_NUMBER` (sem ela os botões usam URL placeholder e não abrem conversa).
 - Zerar `grep -rn "PREENCHER\|VALIDAR" src`, adicionar `og:image` e remover o aviso de validação jurídica só após revisão jurídica.
 
 ## Dados do briefing (10/07/2026) já aplicados em `src/config/site.ts`
 
 Cidade (Campinas – SP), WhatsApp (19) 99920-4440, e-mail `atendimento@formily.com.br`, horários (seg–sex 9h–18h, sáb 8h–12h), razão social, CNPJ e responsável técnica (rodapé). As variáveis `NEXT_PUBLIC_*` continuam sobrescrevendo esses valores.
 
-Pendências: UF do CRF (assumido SP), e-mail de privacidade (usa o de atendimento), endereço completo (rua/nº/CEP; oculto até informado), fotos da equipe (`team.members[].photo`), ilustração da área "Emagrecimento e saúde metabólica" (`careAreas`), textos jurídicos `[PREENCHER]`, `NEXT_PUBLIC_SITE_URL=https://formily.com.br` no deploy. Não afirmar licença sanitária (VISA em deferimento).
+Pendências: UF do CRF (assumido SP), e-mail de privacidade (usa o de atendimento), CEP do endereço (o endereço já aparece na seção de contato; sem CEP o JSON-LD não emite `address`), fotos da equipe (`team.members[].photo`), ilustração da área "Emagrecimento e saúde metabólica" (`careAreas`), textos jurídicos `[PREENCHER]`, `NEXT_PUBLIC_SITE_URL=https://formily.com.br` no deploy. Não afirmar licença sanitária (VISA em deferimento).
