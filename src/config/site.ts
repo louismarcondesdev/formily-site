@@ -200,6 +200,25 @@ export const trust = {
   ],
 } as const;
 
+/**
+ * Variações do pilar de personalização (A-010: a cliente ainda escolhe; ligar com PILAR_PERSONALIZACAO=a|b).
+ * Sem alegação terapêutica. Imagem: mockup existente até a foto real.
+ */
+export const personalizationPillar = {
+  a: {
+    icon: "sparkles",
+    title: "Fórmulas personalizadas",
+    text: "O cuidado com o que você realmente precisa.",
+  },
+  b: {
+    icon: "sparkles",
+    title: "Feita para você",
+    text: "Cada fórmula nasce da escuta e é pensada para a sua rotina e as suas necessidades.",
+  },
+  image: "/images/formily-manifesto.webp",
+  alt: "Farmacêutica da Formily entregando uma sacola a uma cliente no balcão da recepção",
+} as const;
+
 export const howItWorks = {
   title: "Simples, seguro e feito para você.",
   subtitle:
