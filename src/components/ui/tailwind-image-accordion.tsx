@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -45,6 +47,8 @@ export function TailwindImageAccordion({
         <li
           key={item.title}
           tabIndex={0}
+          // iOS Safari não foca <li> ao tocar: foco explícito mantém o painel aberto em tablets (sem hover).
+          onClick={(e) => e.currentTarget.focus()}
           className={cn(
             "group/item relative w-full overflow-hidden rounded-[24px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.15)] before:absolute before:inset-x-0 before:bottom-0 before:z-10 before:h-3/5 before:bg-linear-to-t before:from-black/70 before:transition-opacity focus-visible:outline-offset-4 motion-reduce:transition-none md:not-[&:hover]:group-hover:w-[20%] md:[&:not(:focus-within):not(:hover)]:group-focus-within:w-[20%]",
             !persistentTitle && "md:before:opacity-0 md:hover:before:opacity-100 focus-within:before:opacity-100",
