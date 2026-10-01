@@ -1,4 +1,4 @@
-import { howItWorks as proc } from "@/config/site";
+import { howItWorks as proc, whatsapp } from "@/config/site";
 import { Reveal } from "@/components/ui/scroll-reveal";
 import { Timeline } from "@/components/ui/timeline";
 import { Container, SectionHeading } from "./Section";
@@ -23,7 +23,7 @@ export function ProcessSection() {
         <Timeline data={data} className="mt-14" />
 
         <Reveal className="mt-16 flex justify-center">
-          <WhatsAppButton event="whatsapp_click_process" size="lg">
+          <WhatsAppButton event="whatsapp_click_process" size="lg" message={whatsapp.messages.prescription}>
             {proc.cta}
           </WhatsAppButton>
         </Reveal>

@@ -32,7 +32,7 @@ export function Hero() {
       subtitle={hero.text}
       actions={
         <>
-          <WhatsAppButton event="whatsapp_click_hero" size="lg">
+          <WhatsAppButton event="whatsapp_click_hero" size="lg" message={whatsapp.messages.prescription}>
             {hero.primaryCta}
           </WhatsAppButton>
           <Link

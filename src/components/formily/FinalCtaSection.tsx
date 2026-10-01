@@ -1,4 +1,4 @@
-import { finalCta } from "@/config/site";
+import { finalCta, whatsapp } from "@/config/site";
 import { RevealGroup, RevealItem } from "@/components/ui/scroll-reveal";
 import { TextReveal } from "@/components/ui/text-reveal";
 import { Container } from "./Section";
@@ -21,7 +21,7 @@ export function FinalCtaSection() {
         <RevealGroup stagger={0.08}>
           <RevealItem as="p" className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white">{finalCta.text}</RevealItem>
           <RevealItem className="mt-9 flex justify-center">
-            <WhatsAppButton event="whatsapp_click_final_cta" variant="onDark" size="lg">
+            <WhatsAppButton event="whatsapp_click_final_cta" variant="onDark" size="lg" message={whatsapp.messages.pharmacist}>
               {finalCta.cta}
             </WhatsAppButton>
           </RevealItem>
