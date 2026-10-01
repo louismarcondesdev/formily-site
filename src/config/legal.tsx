@@ -1,5 +1,5 @@
 import type { LegalSection } from "@/components/formily/LegalPage";
-import { cityState, contact } from "@/config/site";
+import { cityState, contact, flags } from "@/config/site";
 
 /** Conteúdo inicial — sujeito à validação jurídica/LGPD antes da publicação definitiva. */
 
@@ -15,7 +15,12 @@ export const privacy = {
     },
     {
       title: "2. Quais informações podem ser tratadas",
-      body: (
+      body: flags.prescriptionForm ? (
+        <p>
+          Você pode compartilhar informações pelo formulário de envio de receita deste site (nome, WhatsApp, e-mail opcional e o arquivo da
+          receita) ou ao entrar em contato pelo WhatsApp, telefone ou e-mail (por exemplo, nome, telefone e o conteúdo de mensagens e receitas enviadas).
+        </p>
+      ) : (
         <p>
           Este site é institucional e não possui formulários de cadastro. As informações são compartilhadas por você ao entrar em contato
           pelo WhatsApp, telefone ou e-mail (por exemplo, nome, telefone e o conteúdo de mensagens e receitas enviadas).

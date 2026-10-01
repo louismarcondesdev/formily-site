@@ -4,7 +4,7 @@ Marque `[x]` ao resolver. Flags e variáveis: ver `.env.example` (todas desligad
 
 ## 1. Bloqueios de go-live
 - [ ] **Destino do formulário de receita** (A-012): Opção A (storage privado + notificação), B (e-mail) ou C (só WhatsApp). Hoje só existe `RECEITA_DESTINO=local` (teste; recusado em produção). Sem destino, manter `RECEITA_FORM_ENABLED=false` (o "clicando aqui" cai no WhatsApp).
-- [ ] **Política de privacidade**: a página existe, mas é rascunho (aviso "validação jurídica/LGPD") e não menciona o formulário, retenção nem consentimento. Revisão jurídica obrigatória antes de ligar o formulário. Definir retenção/rotina de exclusão (RNF-001).
+- [ ] **Política de privacidade**: a página existe, mas é rascunho (aviso "validação jurídica/LGPD"). Com `RECEITA_FORM_ENABLED=true` a seção 2 já descreve o formulário (texto factual, a revisar). Seções de finalidades/bases legais e retenção estão ocultas no site público até a assessoria definir o texto. Revisão jurídica obrigatória antes de ligar o formulário. Definir retenção/rotina de exclusão (RNF-001).
 - [ ] **Limite de 4 MB** no formulário (corpo de função da Vercel = 4,5 MB). Para 10 MB, usar upload direto ao storage (Opção A).
 - [ ] **Revisão regulatória** (A-014): termos como "emagrecedor", "inibidor de apetite", "sacietógenos", "termogênico" nos subitens, e a remoção do aviso "não oferecemos aconselhamento médico" do FAQ (feita ao vivo em 23/09).
 - [ ] **Lista de categorias/subitens validada** (A-001/A-004) e nomes finais. Hoje é rascunho em `careAreas` (`src/config/site.ts`) e só aparece com `MOSTRAR_RASCUNHO_SUBITENS=true`.
