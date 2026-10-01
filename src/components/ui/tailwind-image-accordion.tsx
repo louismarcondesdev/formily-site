@@ -47,7 +47,7 @@ export function TailwindImageAccordion({
         <li
           key={item.title}
           className={cn(
-            "group/item relative w-full overflow-hidden rounded-[24px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.15)] before:absolute before:inset-x-0 before:bottom-0 before:z-10 before:h-3/5 before:bg-linear-to-t before:from-black/70 before:transition-opacity motion-reduce:transition-none md:not-[&:hover]:group-hover:w-[20%] md:[&:not(:focus-within):not(:hover)]:group-focus-within:w-[20%]",
+            "group/item relative w-full overflow-hidden rounded-[24px] transition-all duration-300 ease-[cubic-bezier(.16,1,.3,1)] before:absolute before:inset-x-0 before:bottom-0 before:z-10 before:h-3/5 before:bg-linear-to-t before:from-black/70 before:transition-opacity motion-reduce:transition-none md:not-[&:hover]:group-hover:w-[20%] md:[&:not(:focus-within):not(:hover)]:group-focus-within:w-[20%]",
             !persistentTitle && "md:before:opacity-0 md:hover:before:opacity-100 focus-within:before:opacity-100",
             heightClass,
             !item.image && FALLBACK_BG[i % FALLBACK_BG.length],

@@ -244,15 +244,6 @@
     box-shadow: 0 10px 24px rgba(34, 31, 70, 0.1);
   }
 
-  /* Caixa "Ainda tem alguma dúvida?" do FAQ. */
-  .faq-help {
-    background: var(--surface-50);
-    border: 1px solid var(--border-subtle);
-    border-left: 4px solid var(--formily-green);
-    border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(36, 33, 58, 0.05);
-  }
-
   /* CTA final: índigo profundo com um único brilho de ação e um toque de verde. */
   .final-cta {
     background:
