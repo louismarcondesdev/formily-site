@@ -42,7 +42,7 @@ export function ContactSection() {
         <SectionHeading id="contato-title" title="Contato e localização" subtitle="Fale com a nossa equipe ou visite a Formily." />
 
         {/* Mobile: título → CTA/contatos → mapa. Desktop: lado a lado. */}
-        <RevealGroup className="mt-14 grid gap-6 lg:grid-cols-2 lg:gap-8" stagger={0.1}>
+        <RevealGroup className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8" stagger={0.1}>
           <RevealItem className="flex flex-col rounded-[24px] border border-border-subtle bg-white p-7 sm:p-9">
             <h3 className="text-2xl font-extrabold text-brand-950">{contact.companyName}</h3>
             <p className="mt-1.5 text-text-650">Atendimento próximo, em {contact.city}.</p>

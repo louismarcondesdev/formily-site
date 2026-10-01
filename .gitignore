@@ -55,3 +55,4 @@ __pycache__/
 docs/*.docx
 /formily_*.webp
 .data/
+.playwright-mcp/
