@@ -28,7 +28,7 @@ function FaqHelpCard() {
 
 const items = faq.items.map((f) => ({
   q: f.q,
-  a: <LinkedText text={f.a} linkLabel={"linkLabel" in f ? f.linkLabel : undefined} event="whatsapp_click_faq" />,
+  a: <LinkedText text={f.a} links={"links" in f ? f.links : undefined} event="whatsapp_click_faq" />,
 }));
 
 export function FaqSection() {

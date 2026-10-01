@@ -10,7 +10,7 @@ export function ProcessSection() {
     title: s.title,
     content: (
       <p className="text-lg leading-relaxed text-fm-muted">
-        <LinkedText text={s.text} linkLabel={"linkLabel" in s ? s.linkLabel : undefined} event="whatsapp_click_process" />
+        <LinkedText text={s.text} links={"links" in s ? s.links : undefined} event="whatsapp_click_process" />
       </p>
     ),
   }));

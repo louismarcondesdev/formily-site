@@ -153,7 +153,6 @@ export const legalLinks = [
 export const topBarMessages = [
   "Atendimento personalizado em Campinas",
   "Envie sua receita pelo WhatsApp",
-  "Consulte a equipe sobre retirada e modalidades de entrega.",
 ] as const;
 
 export const hero = {
@@ -207,12 +206,15 @@ export const howItWorks = {
   steps: [
     {
       title: "Envie sua receita",
-      text: "Compartilhe sua prescrição pelo WhatsApp ou clicando aqui, e se necessário fale com o nosso farmacêutico",
-      linkLabel: "clicando aqui",
+      text: "Compartilhe sua prescrição pelo WhatsApp ou clicando aqui e, se necessário, fale com o nosso farmacêutico.",
+      links: [
+        { label: "WhatsApp", to: "whatsapp-prescription" },
+        { label: "clicando aqui", to: "form" },
+      ],
     },
     {
       title: "Receba seu orçamento",
-      text: "Analisamos as informações necessárias e retornamos com as orientações personalizadas para o seu pedido.",
+      text: "Analisamos as informações necessárias e retornamos com orientações personalizadas para o seu pedido.",
     },
     {
       title: "Aprove seu pedido",
@@ -220,7 +222,7 @@ export const howItWorks = {
     },
     {
       title: "Retire ou receba",
-      text: "Retire presencialmente ou receba diretamente no conforto da sua casa",
+      text: "Retire presencialmente ou receba diretamente no conforto da sua casa.",
     },
   ],
   cta: "Quero solicitar meu orçamento",
@@ -379,47 +381,53 @@ export const faq = {
   items: [
     {
       q: "Como solicito um orçamento?",
-      a: "Pelo WhatsApp envie sua receita ou clique aqui.",
-      linkLabel: "clique aqui",
+      a: "Pelo WhatsApp, envie sua receita ou clique aqui.",
+      links: [
+        { label: "WhatsApp", to: "whatsapp-prescription" },
+        { label: "clique aqui", to: "form" },
+      ],
     },
     {
       q: "Posso enviar minha receita pelo WhatsApp?",
-      a: "Sim, o WhatsApp é o nosso canal para iniciar o atendimento. As informações compartilhadas são tratadas com cuidado e conforme a Política de Privacidade.",
+      a: "Sim, o WhatsApp é o nosso canal para iniciar atendimento. As informações compartilhadas são tratadas com cuidado e conforme política de privacidade.",
+      links: [{ label: "política de privacidade", to: "privacy" }],
     },
     {
-      q: "Não tenho receita",
-      a: "Entre em contato pelo WhatsApp com a nossa equipe, e o farmacêutico responsável irá te orientar sobre a fórmula desejada",
+      q: "Não tenho receita, mas quero uma fórmula. Posso?",
+      a: "Entre em contato pelo WhatsApp com a nossa equipe e o farmacêutico responsável irá te orientar sobre a fórmula desejada.",
     },
     {
       q: "Preciso de receita para solicitar uma manipulação?",
       a: "As exigências variam conforme a preparação e a legislação aplicável. Nossa equipe orientará você pelo WhatsApp sobre o que é necessário no seu caso.",
     },
     {
+      // TODO(PENDENTE A-011): texto final da loja/café. Não publicar "cafezinho" sem confirmar que o café existe.
       q: "Posso retirar meu pedido na loja?",
       a: "Sim, temos uma loja física a sua disposição, venha conhecer nossa loja",
     },
     {
+      // [CONFIRMAR] logística nacional (Correios/Cedex) com a cliente antes do go-live.
       q: "Vocês realizam entregas?",
-      a: "Sim, para todo o Brasil, fale com a nossa equipe pelo WhatsApp",
+      a: "Sim, para todo o Brasil. Fale com a nossa equipe pelo WhatsApp.",
     },
     {
-      q: "Como acompanho meu pedido?",
-      a: "Nossa equipe está sempre a disposição para falar sobre o status do seu pedido",
+      q: "Como acompanho o meu pedido?",
+      a: "Nossa equipe está sempre à disposição pelo WhatsApp para falar sobre o status do seu pedido.",
     },
     {
-      q: "Posso tirar dúvidas com um farmacêutico?",
-      a: "Sim, temos um atendimento farmacêutico personalizado para auxiliar em dúvidas e solicitações",
+      q: "Posso tirar dúvidas com o farmacêutico?",
+      a: "Sim, temos um atendimento farmacêutico personalizado para auxiliar em dúvidas e solicitações.",
     },
     {
       q: "Onde fica a Formily?",
-      a: "Avenida Ruy Rodrigues, 4440, Parque Universitário de Viracopos",
+      a: `${contact.addressLine1}, ${contact.addressLine2}, ${contact.city}/${contact.state}.`,
     },
   ],
 } as const;
 
 export const finalCta = {
   title: "Seu cuidado pode começar por uma conversa.",
-  text: "Fale com um dos nossos farmacêuticos, tire suas dúvidas e conheça as possibilidades de personalização da sua fórmula. Estamos aqui para orientá-lo em cada etapa",
+  text: "Fale com um dos nossos farmacêuticos, tire suas dúvidas e conheça as possibilidades de personalização da sua fórmula. Estamos aqui para orientar você em cada etapa.",
   cta: "Falar com o farmacêutico",
 } as const;
 
