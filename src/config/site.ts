@@ -122,9 +122,10 @@ export const contact = {
   socialLinks: [] as { label: string; href: string }[],
   /** Campos estruturados para o JSON-LD (devem ser idênticos ao exibido). Telefone e e-mail vêm dos campos acima. */
   schema: {
-    streetAddress: null as string | null,
-    city: null as string | null,
-    postalCode: null as string | null,
+    streetAddress: addressLine1 as string | null,
+    city: "Campinas" as string | null,
+    // [CONFIRMAR] CEP: sem ele o JSON-LD não emite `address` (nunca preencher "de cabeça").
+    postalCode: "[CONFIRMAR: CEP]" as string | null,
     openingHours: ["Mo-Fr 09:00-18:00", "Sa 08:00-12:00"] as string[] | null,
   },
 };
