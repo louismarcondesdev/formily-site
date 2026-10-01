@@ -99,8 +99,8 @@ export function PrescriptionForm({ pharmacistMessage }: { pharmacistMessage: str
         {err("files")}
       </div>
       <div>
-        <label className="flex items-start gap-3">
-          <input type="checkbox" name="consent" className="mt-1 size-5 shrink-0" {...aria("consent")} />
+        <label className="flex min-h-11 items-start gap-3">
+          <input type="checkbox" name="consent" className="mt-0.5 size-6 shrink-0 accent-[var(--action-600)]" {...aria("consent")} />
           <span>
             Autorizo a Formily a usar meus dados e minha receita <strong>apenas</strong> para elaborar meu orçamento e retornar o contato.{" "}
             <Link href="/politica-de-privacidade" className="font-semibold text-action-700 underline underline-offset-4">Política de privacidade</Link>
