@@ -451,6 +451,15 @@ export const finalCta = {
   cta: "Falar com o farmacêutico",
 } as const;
 
+/** Seção YouTube/Instagram (RF-008). Só aparece com SECAO_VIDEOS=true e ao menos uma URL real. */
+export const videos = {
+  title: "Acompanhe a Formily",
+  subtitle: "Conteúdos e bastidores da nossa manipulação.",
+  // [CONFIRMAR] URLs oficiais com a cliente (A-005). Nunca inventar handle.
+  youtubeChannelUrl: "[CONFIRMAR: URL do canal do YouTube]" as string,
+  instagramUrl: "[CONFIRMAR: URL do Instagram]" as string,
+};
+
 export const footer = {
   tagline: "Fórmulas personalizadas, cuidado próximo e responsabilidade em cada etapa.",
   disclaimer:

@@ -10,6 +10,7 @@ import { TestimonialsSection } from "@/components/formily/TestimonialsSection";
 import { StructureSection } from "@/components/formily/StructureSection";
 import { FaqSection } from "@/components/formily/FaqSection";
 import { FinalCtaSection } from "@/components/formily/FinalCtaSection";
+import { VideosSection } from "@/components/formily/VideosSection";
 import { ContactSection } from "@/components/formily/ContactSection";
 import { Footer } from "@/components/formily/Footer";
 import { MobileStickyCta } from "@/components/formily/MobileStickyCta";
@@ -32,6 +33,7 @@ export default function Home() {
         <TestimonialsSection />
         <FaqSection />
         <FinalCtaSection />
+        <VideosSection />
         <ContactSection />
       </main>
       <Footer />
