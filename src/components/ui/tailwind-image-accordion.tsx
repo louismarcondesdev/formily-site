@@ -83,7 +83,7 @@ export function TailwindImageAccordion({
             {item.subtitle && (
               <p
                 className={cn(
-                  "mt-1 text-xs font-bold uppercase tracking-[0.08em] text-white/85 md:truncate md:whitespace-nowrap",
+                  "mt-1 text-xs font-bold uppercase tracking-[0.08em] text-white md:truncate md:whitespace-nowrap",
                   !persistentTitle && reveal,
                 )}
               >
@@ -91,7 +91,7 @@ export function TailwindImageAccordion({
               </p>
             )}
             {item.description && (
-              <p className={cn("mt-3 text-sm leading-relaxed text-white/90 md:max-h-0 md:overflow-hidden md:group-hover/item:max-h-64 md:group-focus-within/item:max-h-64", "md:transition-[max-height,opacity] md:duration-300 motion-reduce:transition-none", "md:opacity-0 md:group-hover/item:opacity-100 md:group-focus-within/item:opacity-100")}>
+              <p className={cn("mt-3 text-sm leading-relaxed text-white md:max-h-0 md:overflow-hidden md:group-hover/item:max-h-64 md:group-focus-within/item:max-h-64", "md:transition-[max-height,opacity] md:duration-300 motion-reduce:transition-none", "md:opacity-0 md:group-hover/item:opacity-100 md:group-focus-within/item:opacity-100")}>
                 {item.description}
               </p>
             )}
