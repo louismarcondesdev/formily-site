@@ -26,6 +26,8 @@ colors:
   border-secondary: "#cac8d9"
   indigo-deep: "#1f1850"
   indigo-mid: "#3d3390"
+  indigo-gradient-end: "#29366d"
+  action-glow: "rgba(7, 138, 182, 0.42)"
 typography:
   display:
     fontFamily: "Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif"
@@ -60,6 +62,39 @@ typography:
     fontSize: "0.875rem"
     fontWeight: 600
     lineHeight: 1.5
+  nav:
+    fontFamily: "Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.95rem"
+    fontWeight: 600
+  body-compact:
+    fontFamily: "Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 400
+    lineHeight: 1.625
+  lead:
+    fontFamily: "Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1.0625rem"
+    fontWeight: 400
+    lineHeight: 1.625
+  lead-large:
+    fontFamily: "Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1.375rem"
+    fontWeight: 400
+    lineHeight: 1.6
+  wordmark:
+    fontFamily: "Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.62rem"
+    fontWeight: 600
+    letterSpacing: "0.14em"
+  button-small:
+    fontFamily: "Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.8rem"
+    fontWeight: 500
+  dev-note:
+    fontFamily: "Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.7rem"
+    fontWeight: 600
+    letterSpacing: "0.025em"
 rounded:
   chip: "999px"
   focus: "6px"
@@ -167,6 +202,7 @@ Paleta tirada do logo: índigo profundo, verde-menta e ciano sobre brancos levem
 - **Title** (800, 24px, -0,02em): cards e blocos de contato.
 - **Body** (400, 18px, 1,625): texto corrido e subtítulos; `text-muted` para apoio.
 - **Label** (700, 12px, +0,08–0,12em, caixa-alta): eyebrows, títulos de bloco de contato e colunas do rodapé.
+- **Nav** (600, 0,95rem): links do menu e botões de navegação. **Body compact** (400, 0,9375rem, 1,625): textos do bloco de contato no mobile (sobe para 1rem a partir de 640px). **Lead** (400, 1,0625rem → 1,25rem → 1,375rem): subtítulo do hero. **Wordmark** (600, 0,62rem, +0,14em, caixa-alta): linha "Farmácia de Manipulação" sob o logo, ajuste óptico do logotipo. **Button small** (500, 0,8rem): botão `sm` do shadcn, hoje sem uso. **Dev note** (600, 0,7rem): selo `[VALIDAR DISPONIBILIDADE]`, só em desenvolvimento.
 - **Caption** (600, 14px, 1,5): notas, mensagens de erro do formulário, legendas e metadados. Não usar abaixo de 12px, exceto o selo `[VALIDAR DISPONIBILIDADE]` (11,2px), que só aparece em desenvolvimento.
 
 ### Named Rules
@@ -183,8 +219,9 @@ Híbrido plano: as superfícies ficam planas em repouso e a profundidade vem de 
 ### Shadow Vocabulary
 - **Soft** (`0 1px 2px rgb(32 32 58 / .03), 0 6px 18px -8px rgb(48 38 110 / .08)`): cards em repouso.
 - **Lift** (`0 2px 4px rgb(32 32 58 / .04), 0 16px 32px -16px rgb(48 38 110 / .16)`): cards em hover.
-- **Header** (`0 10px 30px rgba(34,31,70,.08)`, blur 14px): barra de navegação.
-- **CTA** (`0 8px 20px rgba(7,138,182,.16)`): botão primário; sobe para `0 12px 24px .22` no hover.
+- **Header** (`0 10px 30px rgba(34,31,70,.08)`, blur 14px): barra de navegação; ao rolar (`.is-sticky`) vira `0 10px 24px rgba(34, 31, 70, 0.1)`.
+- **CTA** (`0 8px 20px rgba(7,138,182,.16)`): botão primário; no hover vira `0 12px 24px rgba(7, 138, 182, 0.22)`.
+- **Brilho do CTA final** (`radial-gradient` de `rgba(7, 138, 182, 0.42)` a 92%/82%, mais um toque verde `rgba(89, 191, 132, 0.1)`): só no fundo do CTA final, sobre o degradê `#26205e → #30266e → #29366d`.
 
 ### Named Rules
 **The Quiet Shadow Rule.** Sombra é difusa e colorida pelo índigo; nunca preta pura nem com contorno duro.

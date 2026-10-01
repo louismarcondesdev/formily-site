@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-01T21:13:55+00:00",
+  "generatedAt": "2026-10-01T21:20:22+00:00",
   "title": "Design System: Formily Farmácia de Manipulação",
   "extensions": {
     "colorMeta": {
@@ -164,6 +164,34 @@
       "caption": {
         "displayName": "Caption",
         "purpose": "Notas, erros de formulário e metadados."
+      },
+      "nav": {
+        "displayName": "Nav",
+        "purpose": "Links do menu."
+      },
+      "body-compact": {
+        "displayName": "Body compact",
+        "purpose": "Textos do bloco de contato no mobile."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Subtítulo do hero."
+      },
+      "lead-large": {
+        "displayName": "Lead large",
+        "purpose": "Subtítulo do hero em telas largas."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Linha sob o logo."
+      },
+      "button-small": {
+        "displayName": "Button small",
+        "purpose": "Botão sm do shadcn."
+      },
+      "dev-note": {
+        "displayName": "Dev note",
+        "purpose": "Selo só de desenvolvimento."
       }
     },
     "shadows": [
@@ -186,6 +214,21 @@
         "name": "cta",
         "value": "0 8px 20px rgba(7, 138, 182, 0.16)",
         "purpose": "CTA primária; sobe no hover."
+      },
+      {
+        "name": "header-sticky",
+        "value": "0 10px 24px rgba(34, 31, 70, 0.1)",
+        "purpose": "Header ao rolar."
+      },
+      {
+        "name": "cta-hover",
+        "value": "0 12px 24px rgba(7, 138, 182, 0.22)",
+        "purpose": "CTA primária em hover."
+      },
+      {
+        "name": "cta-final-glow",
+        "value": "radial-gradient(42% 95% at 92% 82%, rgba(7, 138, 182, 0.42) 0%, rgba(7, 138, 182, 0) 68%)",
+        "purpose": "Brilho de ação no fundo do CTA final (sobre o degradê índigo ... #29366d)."
       }
     ],
     "motion": [
