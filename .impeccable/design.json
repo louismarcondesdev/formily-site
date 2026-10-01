@@ -1,0 +1,354 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-01T21:20:22+00:00",
+  "title": "Design System: Formily Farmácia de Manipulação",
+  "extensions": {
+    "colorMeta": {
+      "indigo-brand": {
+        "role": "primary",
+        "displayName": "Índigo da Marca",
+        "canonical": "#30266e",
+        "tonalRamp": [
+          "#0e0b21",
+          "#181337",
+          "#221b4d",
+          "#2a2161",
+          "#30266e",
+          "#6e679a",
+          "#aca8c5",
+          "#e0dee9"
+        ]
+      },
+      "indigo-title": {
+        "role": "primary",
+        "displayName": "Índigo dos Títulos",
+        "canonical": "#26205e",
+        "tonalRamp": [
+          "#0b0a1c",
+          "#13102f",
+          "#1b1642",
+          "#211c53",
+          "#26205e",
+          "#67638e",
+          "#a8a6bf",
+          "#dedee7"
+        ]
+      },
+      "action": {
+        "role": "secondary",
+        "displayName": "Azul de Ação",
+        "canonical": "#0880a6",
+        "tonalRamp": [
+          "#022632",
+          "#044053",
+          "#065a74",
+          "#077192",
+          "#0880a6",
+          "#52a6c1",
+          "#9cccdb",
+          "#daecf2"
+        ]
+      },
+      "care": {
+        "role": "secondary",
+        "displayName": "Verde Acolhimento",
+        "canonical": "#21734e",
+        "tonalRamp": [
+          "#0a2317",
+          "#103a27",
+          "#175037",
+          "#1d6545",
+          "#21734e",
+          "#649d83",
+          "#a6c7b8",
+          "#deeae4"
+        ]
+      },
+      "green-brand": {
+        "role": "tertiary",
+        "displayName": "Verde da Marca",
+        "canonical": "#59bf84",
+        "tonalRamp": [
+          "#1b3928",
+          "#2c6042",
+          "#3e865c",
+          "#4ea874",
+          "#59bf84",
+          "#8bd2a9",
+          "#bde5ce",
+          "#e6f5ed"
+        ]
+      },
+      "cyan-brand": {
+        "role": "tertiary",
+        "displayName": "Ciano da Marca",
+        "canonical": "#36b9e2",
+        "tonalRamp": [
+          "#103844",
+          "#1b5c71",
+          "#26829e",
+          "#30a3c7",
+          "#36b9e2",
+          "#72ceeb",
+          "#afe3f3",
+          "#e1f4fb"
+        ]
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Cinza Quieto",
+        "canonical": "#5e6074",
+        "tonalRamp": [
+          "#1c1d23",
+          "#2f303a",
+          "#424351",
+          "#535466",
+          "#5e6074",
+          "#8e909e",
+          "#bfbfc7",
+          "#e7e7ea"
+        ]
+      },
+      "surface-soft": {
+        "role": "neutral",
+        "displayName": "Cinza Névoa",
+        "canonical": "#f7f8fa",
+        "tonalRamp": [
+          "#4a4a4b",
+          "#7c7c7d",
+          "#adaeaf",
+          "#d9dadc",
+          "#f7f8fa",
+          "#f9fafc",
+          "#fcfcfd",
+          "#fefefe"
+        ]
+      },
+      "border-secondary": {
+        "role": "neutral",
+        "displayName": "Fio Índigo",
+        "canonical": "#cac8d9",
+        "tonalRamp": [
+          "#3d3c41",
+          "#65646c",
+          "#8d8c98",
+          "#b2b0bf",
+          "#cac8d9",
+          "#dad8e4",
+          "#eae9f0",
+          "#f7f7f9"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Título do hero."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Títulos de seção."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Cards e blocos de contato."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texto corrido."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Eyebrows e títulos de bloco em caixa-alta."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Notas, erros de formulário e metadados."
+      },
+      "nav": {
+        "displayName": "Nav",
+        "purpose": "Links do menu."
+      },
+      "body-compact": {
+        "displayName": "Body compact",
+        "purpose": "Textos do bloco de contato no mobile."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Subtítulo do hero."
+      },
+      "lead-large": {
+        "displayName": "Lead large",
+        "purpose": "Subtítulo do hero em telas largas."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Linha sob o logo."
+      },
+      "button-small": {
+        "displayName": "Button small",
+        "purpose": "Botão sm do shadcn."
+      },
+      "dev-note": {
+        "displayName": "Dev note",
+        "purpose": "Selo só de desenvolvimento."
+      }
+    },
+    "shadows": [
+      {
+        "name": "soft",
+        "value": "0 1px 2px rgb(32 32 58 / 0.03), 0 6px 18px -8px rgb(48 38 110 / 0.08)",
+        "purpose": "Cards em repouso."
+      },
+      {
+        "name": "lift",
+        "value": "0 2px 4px rgb(32 32 58 / 0.04), 0 16px 32px -16px rgb(48 38 110 / 0.16)",
+        "purpose": "Cards em hover."
+      },
+      {
+        "name": "header",
+        "value": "0 10px 30px rgba(34, 31, 70, 0.08)",
+        "purpose": "Barra de navegação flutuante."
+      },
+      {
+        "name": "cta",
+        "value": "0 8px 20px rgba(7, 138, 182, 0.16)",
+        "purpose": "CTA primária; sobe no hover."
+      },
+      {
+        "name": "header-sticky",
+        "value": "0 10px 24px rgba(34, 31, 70, 0.1)",
+        "purpose": "Header ao rolar."
+      },
+      {
+        "name": "cta-hover",
+        "value": "0 12px 24px rgba(7, 138, 182, 0.22)",
+        "purpose": "CTA primária em hover."
+      },
+      {
+        "name": "cta-final-glow",
+        "value": "radial-gradient(42% 95% at 92% 82%, rgba(7, 138, 182, 0.42) 0%, rgba(7, 138, 182, 0) 68%)",
+        "purpose": "Brilho de ação no fundo do CTA final (sobre o degradê índigo ... #29366d)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "fade-up",
+        "value": "0.7s cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Entrada de elementos ao rolar."
+      },
+      {
+        "name": "state",
+        "value": "0.2s",
+        "purpose": "Transição de cor, sombra e transform em botões e cards."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botão primário (WhatsApp)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Única CTA preenchida por região; leva ao WhatsApp.",
+      "html": "<button class=\"ds-btn-primary\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z\"/></svg><span>Falar com o farmacêutico</span></button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:10px;min-height:54px;padding:14px 28px;border-radius:999px;border:1px solid transparent;background:#0880a6;color:#fff;font:700 16px 'Plus Jakarta Sans',system-ui,sans-serif;box-shadow:0 8px 20px rgba(7,138,182,.16);cursor:pointer;transition:background-color .2s,box-shadow .2s,transform .2s}.ds-btn-primary:hover{background:#06779c;box-shadow:0 12px 24px rgba(7,138,182,.22);transform:translateY(-1px)}.ds-btn-primary:focus-visible{outline:3px solid rgba(89,191,132,.55);outline-offset:3px}"
+    },
+    {
+      "name": "Botão secundário",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Ação de apoio (ex.: Como funciona a manipulação).",
+      "html": "<button class=\"ds-btn-secondary\">Como funciona a manipulação</button>",
+      "css": ".ds-btn-secondary{min-height:54px;padding:14px 28px;border-radius:16px;border:1px solid #cac8d9;background:rgba(255,255,255,.72);color:#26205e;font:700 16px 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;transition:background-color .2s,border-color .2s}.ds-btn-secondary:hover{background:#f1f0fa;border-color:#26205e}.ds-btn-secondary:focus-visible{outline:3px solid rgba(89,191,132,.55);outline-offset:3px}"
+    },
+    {
+      "name": "Chip de categoria",
+      "kind": "chip",
+      "refersTo": "chip-category",
+      "description": "Etiqueta só de texto, uma cor por categoria; não clicável.",
+      "html": "<span class=\"ds-chip\">Antiqueda</span> <span class=\"ds-chip ds-chip-care\">Pré-treino</span>",
+      "css": ".ds-chip{display:inline-block;padding:8px 16px;border-radius:999px;background:#f1f0fa;color:#26205e;box-shadow:inset 0 0 0 1px rgba(38,32,94,.15);font:600 16px 'Plus Jakarta Sans',system-ui,sans-serif}.ds-chip-care{background:#edf9f1;color:#21734e;box-shadow:inset 0 0 0 1px rgba(33,115,78,.2)}"
+    },
+    {
+      "name": "Card de área",
+      "kind": "card",
+      "refersTo": "card-area",
+      "description": "Card branco de cantos 22px que sobe com sombra no hover.",
+      "html": "<div class=\"ds-card\"><h3>Pele e cabelos</h3><p>Atendimento personalizado.</p></div>",
+      "css": ".ds-card{width:280px;padding:28px;border-radius:22px;border:1px solid #e4e7ec;background:#fff;box-shadow:0 1px 2px rgb(32 32 58/.03),0 6px 18px -8px rgb(48 38 110/.08);font-family:'Plus Jakarta Sans',system-ui,sans-serif;transition:transform .2s,border-color .2s}.ds-card:hover{transform:translateY(-2px);border-color:rgba(48,38,110,.25)}.ds-card h3{margin:0;font-size:18px;font-weight:700;color:#26205e}.ds-card p{margin:8px 0 0;color:#5e6074}"
+    },
+    {
+      "name": "Campo de formulário",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Label visível acima; erro com borda vermelha e mensagem.",
+      "html": "<label class=\"ds-field\">Nome<input type=\"text\" value=\"Ana\" /></label><label class=\"ds-field\">WhatsApp<input type=\"tel\" aria-invalid=\"true\" placeholder=\"(19) 99999-9999\" /></label>",
+      "css": ".ds-field{display:block;margin-bottom:16px;font:700 16px 'Plus Jakarta Sans',system-ui,sans-serif;color:#20203a}.ds-field input{display:block;width:100%;margin-top:6px;padding:12px 16px;border-radius:12px;border:1px solid #e4e7ec;background:#fff;font:400 16px 'Plus Jakarta Sans',system-ui,sans-serif;color:#20203a}.ds-field input:focus-visible{outline:3px solid #36b9e2;outline-offset:3px}.ds-field input[aria-invalid=true]{border-color:#dc2626}"
+    }
+  ],
+  "narrative": {
+    "northStar": "O Balcão da Família",
+    "overview": "O site é um balcão de farmácia familiar aberto na web: o visitante é recebido com calma, vê quem cuida da fórmula e é conduzido a uma conversa. O rigor de laboratório aparece na precisão do detalhe, não em frieza.",
+    "keyCharacteristics": [
+      "Índigo de marca para autoridade e títulos; azul-petróleo (`action`) exclusivo para a CTA primária.",
+      "Cantos generosos (22–32px) e pílula só na CTA de WhatsApp.",
+      "Sombras difusas e baixas; nada de contornos pesados.",
+      "Ilustrações do topo e logo são aprovados e intocáveis.",
+      "Nada depende de hover."
+    ],
+    "rules": [
+      {
+        "name": "The One Blue Rule",
+        "body": "O azul de ação preenche só a CTA primária, uma por região visual.",
+        "section": "colors"
+      },
+      {
+        "name": "The Calculated Contrast Rule",
+        "body": "Todo par texto/fundo novo precisa de razão calculada AA (≥ 4,5:1).",
+        "section": "colors"
+      },
+      {
+        "name": "The Balanced Headline Rule",
+        "body": "Títulos usam text-wrap: balance e tracking negativo.",
+        "section": "typography"
+      },
+      {
+        "name": "The Quiet Shadow Rule",
+        "body": "Sombra é difusa e colorida pelo índigo; nunca preta pura nem com contorno duro.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do usar o azul de ação só para a CTA primária, uma por região.",
+      "Do calcular contraste de qualquer par novo (mínimo 4,5:1).",
+      "Do manter cantos de 22–24px em cards e 999px apenas na CTA de WhatsApp.",
+      "Do garantir que tudo funcione por toque e teclado.",
+      "Do alternar surface e surface-soft entre seções."
+    ],
+    "donts": [
+      "Don't alterar ícones/ilustrações do topo, o logo ou os horários.",
+      "Don't usar preço, carrinho ou imagem de produto.",
+      "Don't inventar fotos, depoimentos ou números.",
+      "Don't usar sombras pretas ou faixa colorida lateral em cards.",
+      "Don't usar zoom no hover de cards nem easing com bounce."
+    ]
+  }
+}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
-import { careAreas, hero } from "@/config/site";
+import { careAreas, fillMessage, flags, hero, whatsapp } from "@/config/site";
+import { whatsappUrl } from "@/lib/whatsapp";
 import { PulseFitHero, PulseFitMarquee } from "@/components/ui/pulse-fit-hero";
 import { HeroAreaCard } from "./HeroAreaCard";
 import { WhatsAppButton } from "./WhatsAppButton";
@@ -15,6 +16,11 @@ const areaCards = (clone: boolean) =>
       label={a.label}
       icon={a.icon}
       image={a.image}
+      href={
+        flags.subitems
+          ? `/categoria/${a.slug}`
+          : whatsappUrl(fillMessage(whatsapp.messages.category, { categoria: a.label }))
+      }
       clone={clone}
     />
   ));
@@ -26,7 +32,7 @@ export function Hero() {
       subtitle={hero.text}
       actions={
         <>
-          <WhatsAppButton event="whatsapp_click_hero" size="lg">
+          <WhatsAppButton event="whatsapp_click_hero" size="lg" message={whatsapp.messages.prescription}>
             {hero.primaryCta}
           </WhatsAppButton>
           <Link

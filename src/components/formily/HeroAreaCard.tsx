@@ -1,9 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { careAreaMessage } from "@/config/site";
+import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
-import { whatsappUrl } from "@/lib/whatsapp";
 import { NamedIcon, WhatsAppIcon } from "./icons";
 
 type Props = {
@@ -11,6 +10,8 @@ type Props = {
   icon: string;
   /** Ilustração 2:3 (1024x1536) da área. */
   image: string;
+  /** Página interna da categoria (`/categoria/<slug>`) ou URL do WhatsApp com a categoria na mensagem. */
+  href: string;
   /** A cópia do carrossel fica fora da ordem de tabulação. */
   clone?: boolean;
 };
@@ -19,13 +20,14 @@ type Props = {
  * Card de área de atendimento do hero: ilustração em tela cheia (2:3, igual ao card),
  * com degradê branco na base para o texto manter contraste.
  */
-export function HeroAreaCard({ label, icon, image, clone = false }: Props) {
+export function HeroAreaCard({ label, icon, image, href, clone = false }: Props) {
+  const internal = href.startsWith("/");
+  const Tag = internal ? Link : "a";
   return (
     <li>
-      <a
-        href={whatsappUrl(careAreaMessage(label))}
-        target="_blank"
-        rel="noopener noreferrer"
+      <Tag
+        href={href}
+        {...(internal ? {} : { target: "_blank", rel: "noopener noreferrer" })}
         tabIndex={clone ? -1 : undefined}
         onClick={() => trackEvent("whatsapp_click_care_area", { area: label, placement: "hero" })}
         className="group relative flex h-96 w-64 flex-col justify-between overflow-hidden rounded-3xl bg-fm-surface p-6 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:shadow-lift sm:h-[27rem] sm:w-72"
@@ -47,12 +49,14 @@ export function HeroAreaCard({ label, icon, image, clone = false }: Props) {
         <span className="relative">
           <span className="block text-2xl font-bold leading-tight text-fm-indigo">{label}</span>
           <span className="mt-4 flex items-center gap-2 text-sm font-bold text-fm-green-dark">
-            <WhatsAppIcon className="size-4" />
-            Conversar com a equipe
-            <span className="sr-only"> sobre {label} (abre o WhatsApp em uma nova aba)</span>
+            {internal ? null : <WhatsAppIcon className="size-4" />}
+            {internal ? "Ver opções" : "Conversar com a equipe"}
+            <span className="sr-only">
+              {internal ? ` de ${label}` : ` sobre ${label} (abre o WhatsApp em uma nova aba)`}
+            </span>
           </span>
         </span>
-      </a>
+      </Tag>
     </li>
   );
 }

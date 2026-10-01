@@ -8,11 +8,11 @@
 
 import type { Testimonial } from "@/components/ui/testimonials-columns-1";
 
-export const PLACEHOLDER_MARK = "[PREENCHER";
+export const PLACEHOLDER_MARKS = ["[PREENCHER", "[CONFIRMAR"] as const;
 
 /** Verdadeiro somente se o valor existe e não é um placeholder. */
 export function isFilled(value: string | null | undefined): value is string {
-  return Boolean(value && value.trim() && !value.includes(PLACEHOLDER_MARK));
+  return Boolean(value && value.trim() && !PLACEHOLDER_MARKS.some((m) => value.includes(m)));
 }
 
 const env = (name: string): string | undefined => {
@@ -43,14 +43,26 @@ export const site = {
 /**
  * WhatsApp oficial: +55 19 99920-4440. Fixo no código (sem variável de ambiente) para que
  * todos os botões e links enviem sempre para este número. Formato: DDI+DDD+número, só dígitos.
+ * Para um 2º número, adicione um item em `numbers` e use o `id` em `whatsappUrl(msg, id)`.
  */
 export const whatsapp = {
-  number: "5519999204440",
-  defaultMessage:
-    "Olá! Gostaria de solicitar um orçamento na Formily Farmácia de Manipulação.",
-  /** Número formatado para exibição (opcional). */
-  display: "(19) 99920-4440",
+  numbers: [{ id: "principal", number: "5519999204440", display: "(19) 99920-4440", label: "Atendimento" }],
+  defaultId: "principal",
+  /** Mensagens pré-preenchidas (editáveis aqui). `{categoria}` e `{subitem}` são substituídos. */
+  messages: {
+    default: "Olá! Gostaria de solicitar um orçamento na Formily Farmácia de Manipulação.",
+    subitem: "Olá! Vim pelo site e tenho interesse em manipulados para {subitem} ({categoria}).",
+    category: "Olá! Vim pelo site e tenho interesse em manipulados da área de {categoria}.",
+    pharmacist: "Olá! Vim pelo site e gostaria de falar com um farmacêutico.",
+    prescription: "Olá! Vim pelo site e gostaria de enviar minha receita para orçamento.",
+    question: "Olá! Vim pelo site e tenho uma dúvida.",
+    team: "Olá! Vim pelo site, não encontrei o que procuro e gostaria de falar com a equipe.",
+  },
 };
+
+/** Preenche `{chave}` no template de mensagem. */
+export const fillMessage = (template: string, vars: Record<string, string> = {}) =>
+  template.replace(/\{(\w+)\}/g, (_, k: string) => vars[k] ?? "");
 
 const addressLine1 = env("NEXT_PUBLIC_CONTACT_ADDRESS_1") ?? "Avenida Ruy Rodrigues, 4440";
 const addressLine2 = env("NEXT_PUBLIC_CONTACT_ADDRESS_2") ?? "Parque Universitário de Viracopos";
@@ -110,9 +122,10 @@ export const contact = {
   socialLinks: [] as { label: string; href: string }[],
   /** Campos estruturados para o JSON-LD (devem ser idênticos ao exibido). Telefone e e-mail vêm dos campos acima. */
   schema: {
-    streetAddress: null as string | null,
-    city: null as string | null,
-    postalCode: null as string | null,
+    streetAddress: addressLine1 as string | null,
+    city: "Campinas" as string | null,
+    // [CONFIRMAR] CEP: sem ele o JSON-LD não emite `address` (nunca preencher "de cabeça").
+    postalCode: "[CONFIRMAR: CEP]" as string | null,
     openingHours: ["Mo-Fr 09:00-18:00", "Sa 08:00-12:00"] as string[] | null,
   },
 };
@@ -141,7 +154,6 @@ export const legalLinks = [
 export const topBarMessages = [
   "Atendimento personalizado em Campinas",
   "Envie sua receita pelo WhatsApp",
-  "Consulte a equipe sobre retirada e modalidades de entrega.",
 ] as const;
 
 export const hero = {
@@ -188,6 +200,25 @@ export const trust = {
   ],
 } as const;
 
+/**
+ * Variações do pilar de personalização (A-010: a cliente ainda escolhe; ligar com PILAR_PERSONALIZACAO=a|b).
+ * Sem alegação terapêutica. Imagem: mockup existente até a foto real.
+ */
+export const personalizationPillar = {
+  a: {
+    icon: "sparkles",
+    title: "Fórmulas personalizadas",
+    text: "O cuidado com o que você realmente precisa.",
+  },
+  b: {
+    icon: "sparkles",
+    title: "Feita para você",
+    text: "Cada fórmula nasce da escuta e é pensada para a sua rotina e as suas necessidades.",
+  },
+  image: "/images/formily-manifesto.webp",
+  alt: "Farmacêutica da Formily entregando uma sacola a uma cliente no balcão da recepção",
+} as const;
+
 export const howItWorks = {
   title: "Simples, seguro e feito para você.",
   subtitle:
@@ -195,12 +226,15 @@ export const howItWorks = {
   steps: [
     {
       title: "Envie sua receita",
-      text: "Compartilhe sua prescrição pelo WhatsApp ou clicando aqui, e se necessário fale com o nosso farmacêutico",
-      linkLabel: "clicando aqui",
+      text: "Compartilhe sua prescrição pelo WhatsApp ou clicando aqui e, se necessário, fale com o nosso farmacêutico.",
+      links: [
+        { label: "WhatsApp", to: "whatsapp-prescription" },
+        { label: "clicando aqui", to: "form" },
+      ],
     },
     {
       title: "Receba seu orçamento",
-      text: "Analisamos as informações necessárias e retornamos com as orientações personalizadas para o seu pedido.",
+      text: "Analisamos as informações necessárias e retornamos com orientações personalizadas para o seu pedido.",
     },
     {
       title: "Aprove seu pedido",
@@ -208,7 +242,7 @@ export const howItWorks = {
     },
     {
       title: "Retire ou receba",
-      text: "Retire presencialmente ou receba diretamente no conforto da sua casa",
+      text: "Retire presencialmente ou receba diretamente no conforto da sua casa.",
     },
   ],
   cta: "Quero solicitar meu orçamento",
@@ -225,21 +259,86 @@ export const careAreas = {
   title: "Soluções personalizadas para diferentes momentos da vida.",
   subtitle:
     "Converse com nossa equipe sobre as possibilidades de atendimento para sua prescrição.",
+  /**
+   * `subitems`: RASCUNHO do anexo (5.2), todos itens ditos pela Dayene. NÃO publicar sem validação (A-004):
+   * só aparecem com MOSTRAR_RASCUNHO_SUBITENS=true. Mesmo subitem pode repetir em mais de uma área.
+   * `color`: chave de `chipColors` (chips da seção "Soluções personalizadas").
+   */
   items: [
     // Foco do briefing: emagrecimento, saúde metabólica, longevidade, bem-estar e performance (sem limitar ao público esportivo).
     // TODO(imagem): criar ilustração de "Emagrecimento e saúde metabólica" em public/images/hero_carrossel/ e informar `image` (entra no carrossel do hero).
-    { label: "Emagrecimento e saúde metabólica", icon: "gauge", enabled: true, confirmed: true },
-    { label: "Longevidade", icon: "hourglass", enabled: true, confirmed: true, image: "/images/hero_carrossel/care-longevidade.webp" },
-    { label: "Nutrição e performance", icon: "activity", enabled: true, confirmed: true, image: "/images/hero_carrossel/care-nutricao-performance.webp" },
-    { label: "Saúde e bem-estar", icon: "leaf", enabled: true, confirmed: true },
-    { label: "Pele e cabelos", icon: "sparkles", enabled: true, confirmed: true, image: "/images/hero_carrossel/care-pele-cabelos.webp" },
-    { label: "Sono e rotina", icon: "moon", enabled: true, confirmed: true, image: "/images/hero_carrossel/care-sono-rotina.webp" },
+    {
+      slug: "emagrecimento", label: "Emagrecimento e saúde metabólica", icon: "gauge", enabled: true, confirmed: true, color: "indigo",
+      summary: "Atendimento personalizado para quem busca orientação sobre emagrecimento e saúde metabólica.",
+      subitems: ["Acelerador de metabolismo", "Gordura localizada", "Inibidor de apetite", "Desintoxicação do organismo", "Perda de medidas", "Sacietógenos", "Fonte de fibra", "Emagrecedor"],
+    },
+    {
+      slug: "longevidade", label: "Longevidade", icon: "hourglass", enabled: true, confirmed: true, color: "cyan", image: "/images/hero_carrossel/care-longevidade.webp",
+      summary: "Converse com a nossa equipe sobre cuidado e longevidade.",
+      subitems: [],
+    },
+    {
+      slug: "nutricao-e-performance", label: "Nutrição e performance", icon: "activity", enabled: true, confirmed: true, color: "green", image: "/images/hero_carrossel/care-nutricao-performance.webp",
+      summary: "Atendimento personalizado para rotina de treino, energia e desempenho.",
+      subitems: ["Termogênico", "Energia e resistência", "Pré-treino", "Pós-treino", "Desempenho físico"],
+    },
+    {
+      slug: "saude-e-bem-estar", label: "Saúde e bem-estar", icon: "leaf", enabled: true, confirmed: true, color: "mint",
+      summary: "Atendimento personalizado para o seu bem-estar no dia a dia.",
+      subitems: ["Memória e concentração", "Alívio dos sintomas de TPM"],
+    },
+    {
+      slug: "pele-e-cabelos", label: "Pele e cabelos", icon: "sparkles", enabled: true, confirmed: true, color: "rose", image: "/images/hero_carrossel/care-pele-cabelos.webp",
+      summary: "Atendimento personalizado para o cuidado com a pele, os cabelos e as unhas.",
+      subitems: ["Saúde da pele", "Fotoproteção", "Antiacne", "Hidratantes", "Rejuvenescimento", "Firmeza da pele", "Antiqueda", "Brilho", "Fortalecimento de unha e cabelo"],
+    },
+    {
+      slug: "sono-e-rotina", label: "Sono e rotina", icon: "moon", enabled: true, confirmed: true, color: "violet", image: "/images/hero_carrossel/care-sono-rotina.webp",
+      summary: "Atendimento personalizado para o sono e a rotina.",
+      subitems: ["Melhorar o sono", "O que usar ao acordar"],
+    },
     // Fora do briefing: mantidas desabilitadas.
-    { label: "Saúde da mulher", icon: "flower", enabled: false, confirmed: false, image: "/images/hero_carrossel/care-saude-mulher.webp" },
-    { label: "Saúde do homem", icon: "compass", enabled: false, confirmed: false, image: "/images/hero_carrossel/care-saude-homem.webp" },
-    { label: "Cuidado veterinário", icon: "paw", enabled: false, confirmed: false, image: "/images/hero_carrossel/care-veterinario.webp" },
+    { slug: "saude-da-mulher", label: "Saúde da mulher", icon: "flower", enabled: false, confirmed: false, color: "rose", image: "/images/hero_carrossel/care-saude-mulher.webp", summary: "", subitems: [] },
+    { slug: "saude-do-homem", label: "Saúde do homem", icon: "compass", enabled: false, confirmed: false, color: "indigo", image: "/images/hero_carrossel/care-saude-homem.webp", summary: "", subitems: [] },
+    { slug: "cuidado-veterinario", label: "Cuidado veterinário", icon: "paw", enabled: false, confirmed: false, color: "green", image: "/images/hero_carrossel/care-veterinario.webp", summary: "", subitems: [] },
   ],
 } as const;
+
+/** Cores dos chips (uma por categoria). Texto escuro sobre fundo claro: contraste AA. */
+export const chipColors = {
+  indigo: "bg-brand-50 text-brand-950 ring-1 ring-brand-950/15",
+  cyan: "bg-cyan-50 text-cyan-950 ring-1 ring-cyan-900/15",
+  green: "bg-care-50 text-care-700 ring-1 ring-care-700/20",
+  mint: "bg-fm-mint-soft text-fm-green-dark ring-1 ring-fm-green-dark/20",
+  rose: "bg-rose-50 text-rose-900 ring-1 ring-rose-900/15",
+  violet: "bg-violet-50 text-violet-900 ring-1 ring-violet-900/15",
+} as const;
+
+export type CareArea = (typeof careAreas.items)[number];
+
+export const findCareArea = (slug: string): CareArea | undefined =>
+  careAreas.items.find((a) => a.enabled && a.slug === slug);
+
+/**
+ * Flags (padrão: desligadas). Lidas só no servidor; passe o resultado por props a componentes de cliente.
+ * Ver .env.example.
+ */
+const flag = (name: string) => env(name) === "true";
+export const flags = {
+  /** Rascunho de categorias/subitens (aguarda validação da cliente, A-004). */
+  subitems: flag("MOSTRAR_RASCUNHO_SUBITENS"),
+  /** "Soluções personalizadas" em chips de texto (experimento reversível, D-006). Exige `subitems`. */
+  chips: flag("SECAO_SOLUCOES_CHIPS"),
+  /** Formulário de envio de receita (exige destino em RECEITA_DESTINO). */
+  prescriptionForm: flag("RECEITA_FORM_ENABLED"),
+  /** Seção YouTube/Instagram (exige URLs em `videos`). */
+  videos: flag("SECAO_VIDEOS"),
+  /** Variação do pilar "personalização": "a" | "b" | desligado. */
+  personalization: ((): "a" | "b" | null => {
+    const v = env("PILAR_PERSONALIZACAO");
+    return v === "a" || v === "b" ? v : null;
+  })(),
+};
 
 export const about = {
   title: "Uma fórmula carrega ciência. Um cuidado carrega história.",
@@ -302,49 +401,64 @@ export const faq = {
   items: [
     {
       q: "Como solicito um orçamento?",
-      a: "Pelo WhatsApp envie sua receita ou clique aqui.",
-      linkLabel: "clique aqui",
+      a: "Pelo WhatsApp, envie sua receita ou clique aqui.",
+      links: [
+        { label: "WhatsApp", to: "whatsapp-prescription" },
+        { label: "clique aqui", to: "form" },
+      ],
     },
     {
       q: "Posso enviar minha receita pelo WhatsApp?",
-      a: "Sim, o WhatsApp é o nosso canal para iniciar o atendimento. As informações compartilhadas são tratadas com cuidado e conforme a Política de Privacidade.",
+      a: "Sim, o WhatsApp é o nosso canal para iniciar atendimento. As informações compartilhadas são tratadas com cuidado e conforme política de privacidade.",
+      links: [{ label: "política de privacidade", to: "privacy" }],
     },
     {
-      q: "Não tenho receita",
-      a: "Entre em contato pelo WhatsApp com a nossa equipe, e o farmacêutico responsável irá te orientar sobre a fórmula desejada",
+      q: "Não tenho receita, mas quero uma fórmula. Posso?",
+      a: "Entre em contato pelo WhatsApp com a nossa equipe e o farmacêutico responsável irá te orientar sobre a fórmula desejada.",
     },
     {
       q: "Preciso de receita para solicitar uma manipulação?",
       a: "As exigências variam conforme a preparação e a legislação aplicável. Nossa equipe orientará você pelo WhatsApp sobre o que é necessário no seu caso.",
     },
     {
+      // TODO(PENDENTE A-011): texto final da loja/café. Não publicar "cafezinho" sem confirmar que o café existe.
       q: "Posso retirar meu pedido na loja?",
       a: "Sim, temos uma loja física a sua disposição, venha conhecer nossa loja",
     },
     {
+      // [CONFIRMAR] logística nacional (Correios/Cedex) com a cliente antes do go-live.
       q: "Vocês realizam entregas?",
-      a: "Sim, para todo o Brasil, fale com a nossa equipe pelo WhatsApp",
+      a: "Sim, para todo o Brasil. Fale com a nossa equipe pelo WhatsApp.",
     },
     {
-      q: "Como acompanho meu pedido?",
-      a: "Nossa equipe está sempre a disposição para falar sobre o status do seu pedido",
+      q: "Como acompanho o meu pedido?",
+      a: "Nossa equipe está sempre à disposição pelo WhatsApp para falar sobre o status do seu pedido.",
     },
     {
-      q: "Posso tirar dúvidas com um farmacêutico?",
-      a: "Sim, temos um atendimento farmacêutico personalizado para auxiliar em dúvidas e solicitações",
+      q: "Posso tirar dúvidas com o farmacêutico?",
+      a: "Sim, temos um atendimento farmacêutico personalizado para auxiliar em dúvidas e solicitações.",
     },
     {
       q: "Onde fica a Formily?",
-      a: "Avenida Ruy Rodrigues, 4440, Parque Universitário de Viracopos",
+      a: `${contact.addressLine1}, ${contact.addressLine2}, ${contact.city}/${contact.state}.`,
     },
   ],
 } as const;
 
 export const finalCta = {
   title: "Seu cuidado pode começar por uma conversa.",
-  text: "Fale com um dos nossos farmacêuticos, tire suas dúvidas e conheça as possibilidades de personalização da sua fórmula. Estamos aqui para orientá-lo em cada etapa",
+  text: "Fale com um dos nossos farmacêuticos, tire suas dúvidas e conheça as possibilidades de personalização da sua fórmula. Estamos aqui para orientar você em cada etapa.",
   cta: "Falar com o farmacêutico",
 } as const;
+
+/** Seção YouTube/Instagram (RF-008). Só aparece com SECAO_VIDEOS=true e ao menos uma URL real. */
+export const videos = {
+  title: "Acompanhe a Formily",
+  subtitle: "Conteúdos e bastidores da nossa manipulação.",
+  // [CONFIRMAR] URLs oficiais com a cliente (A-005). Nunca inventar handle.
+  youtubeChannelUrl: "[CONFIRMAR: URL do canal do YouTube]" as string,
+  instagramUrl: "[CONFIRMAR: URL do Instagram]" as string,
+};
 
 export const footer = {
   tagline: "Fórmulas personalizadas, cuidado próximo e responsabilidade em cada etapa.",
@@ -409,7 +523,3 @@ export const images = {
     realPhoto: false,
   },
 } satisfies Record<string, ImageSlot>;
-
-/** Mensagem contextual para um card de área de atendimento. */
-export const careAreaMessage = (area: string) =>
-  `Olá! Gostaria de conversar com a equipe da Formily Farmácia de Manipulação sobre atendimento na área de "${area}".`;

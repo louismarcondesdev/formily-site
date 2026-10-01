@@ -1,4 +1,4 @@
-import { careAreas } from "@/config/site";
+import { careAreas, chipColors, flags, whatsapp } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Container, SectionHeading } from "./Section";
 import { NamedIcon } from "./icons";
@@ -6,7 +6,6 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/ui/scroll-reveal";
 import { WhatsAppButton } from "./WhatsAppButton";
 
 const isDev = process.env.NODE_ENV !== "production";
-const CTA_MESSAGE = "Olá! Não encontrei o que procuro e gostaria de falar com a equipe da Formily Farmácia de Manipulação.";
 
 function HelpCta() {
   return (
@@ -16,12 +15,20 @@ function HelpCta() {
         event="whatsapp_click_care_area"
         variant="ghost"
         eventParams={{ area: "outras", placement: "care_areas_cta" }}
-        message={CTA_MESSAGE}
+        message={whatsapp.messages.team}
       >
         Falar com a equipe
       </WhatsAppButton>
     </Reveal>
   );
+}
+
+/** Intercala os subitens das áreas (1º de cada área, depois o 2º...) para misturar as cores. */
+function interleavedChips(items: readonly (typeof careAreas.items)[number][]) {
+  const rows = items.map((a) => a.subitems.map((name) => ({ name, area: a.label, color: a.color })));
+  const out: (typeof rows)[number] = [];
+  for (let i = 0; i < Math.max(0, ...rows.map((r) => r.length)); i++) rows.forEach((r) => r[i] && out.push(r[i]));
+  return out;
 }
 
 /**
@@ -33,13 +40,25 @@ function HelpCta() {
 export function CareAreasSection() {
   const items = careAreas.items.filter((a) => a.enabled);
   const bento = items.length >= 7;
+  // Experimento reversível (D-006): chips só de texto, não clicáveis. Depende do rascunho de subitens.
+  const chips = flags.chips && flags.subitems ? interleavedChips(items) : [];
 
   return (
     <section aria-labelledby="areas-title" className="bg-surface-50 py-20 lg:py-28">
       <Container>
         <SectionHeading id="areas-title" title={careAreas.title} subtitle={careAreas.subtitle} />
 
-        {items.length >= 4 && (
+        {chips.length > 0 ? (
+          <ul className="mt-14 flex flex-wrap justify-center gap-2.5 sm:gap-3">
+            {chips.map((c) => (
+              <li key={`${c.area}-${c.name}`} className={cn("rounded-full px-4 py-2 text-sm font-semibold sm:text-base", chipColors[c.color])}>
+                {c.name}
+                <span className="sr-only"> ({c.area})</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          items.length >= 4 && (
           <RevealGroup
             as="ul"
             className={cn(
@@ -76,6 +95,7 @@ export function CareAreasSection() {
               );
             })}
           </RevealGroup>
+          )
         )}
 
         <HelpCta />
