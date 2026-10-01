@@ -8,11 +8,11 @@
 
 import type { Testimonial } from "@/components/ui/testimonials-columns-1";
 
-export const PLACEHOLDER_MARK = "[PREENCHER";
+export const PLACEHOLDER_MARKS = ["[PREENCHER", "[CONFIRMAR"] as const;
 
 /** Verdadeiro somente se o valor existe e não é um placeholder. */
 export function isFilled(value: string | null | undefined): value is string {
-  return Boolean(value && value.trim() && !value.includes(PLACEHOLDER_MARK));
+  return Boolean(value && value.trim() && !PLACEHOLDER_MARKS.some((m) => value.includes(m)));
 }
 
 const env = (name: string): string | undefined => {
@@ -43,14 +43,26 @@ export const site = {
 /**
  * WhatsApp oficial: +55 19 99920-4440. Fixo no código (sem variável de ambiente) para que
  * todos os botões e links enviem sempre para este número. Formato: DDI+DDD+número, só dígitos.
+ * Para um 2º número, adicione um item em `numbers` e use o `id` em `whatsappUrl(msg, id)`.
  */
 export const whatsapp = {
-  number: "5519999204440",
-  defaultMessage:
-    "Olá! Gostaria de solicitar um orçamento na Formily Farmácia de Manipulação.",
-  /** Número formatado para exibição (opcional). */
-  display: "(19) 99920-4440",
+  numbers: [{ id: "principal", number: "5519999204440", display: "(19) 99920-4440", label: "Atendimento" }],
+  defaultId: "principal",
+  /** Mensagens pré-preenchidas (editáveis aqui). `{categoria}` e `{subitem}` são substituídos. */
+  messages: {
+    default: "Olá! Gostaria de solicitar um orçamento na Formily Farmácia de Manipulação.",
+    subitem: "Olá! Vim pelo site e tenho interesse em manipulados para {subitem} ({categoria}).",
+    category: "Olá! Vim pelo site e tenho interesse em manipulados da área de {categoria}.",
+    pharmacist: "Olá! Vim pelo site e gostaria de falar com um farmacêutico.",
+    prescription: "Olá! Vim pelo site e gostaria de enviar minha receita para orçamento.",
+    question: "Olá! Vim pelo site e tenho uma dúvida.",
+    team: "Olá! Vim pelo site, não encontrei o que procuro e gostaria de falar com a equipe.",
+  },
 };
+
+/** Preenche `{chave}` no template de mensagem. */
+export const fillMessage = (template: string, vars: Record<string, string> = {}) =>
+  template.replace(/\{(\w+)\}/g, (_, k: string) => vars[k] ?? "");
 
 const addressLine1 = env("NEXT_PUBLIC_CONTACT_ADDRESS_1") ?? "Avenida Ruy Rodrigues, 4440";
 const addressLine2 = env("NEXT_PUBLIC_CONTACT_ADDRESS_2") ?? "Parque Universitário de Viracopos";
@@ -225,21 +237,86 @@ export const careAreas = {
   title: "Soluções personalizadas para diferentes momentos da vida.",
   subtitle:
     "Converse com nossa equipe sobre as possibilidades de atendimento para sua prescrição.",
+  /**
+   * `subitems`: RASCUNHO do anexo (5.2), todos itens ditos pela Dayene. NÃO publicar sem validação (A-004):
+   * só aparecem com MOSTRAR_RASCUNHO_SUBITENS=true. Mesmo subitem pode repetir em mais de uma área.
+   * `color`: chave de `chipColors` (chips da seção "Soluções personalizadas").
+   */
   items: [
     // Foco do briefing: emagrecimento, saúde metabólica, longevidade, bem-estar e performance (sem limitar ao público esportivo).
     // TODO(imagem): criar ilustração de "Emagrecimento e saúde metabólica" em public/images/hero_carrossel/ e informar `image` (entra no carrossel do hero).
-    { label: "Emagrecimento e saúde metabólica", icon: "gauge", enabled: true, confirmed: true },
-    { label: "Longevidade", icon: "hourglass", enabled: true, confirmed: true, image: "/images/hero_carrossel/care-longevidade.webp" },
-    { label: "Nutrição e performance", icon: "activity", enabled: true, confirmed: true, image: "/images/hero_carrossel/care-nutricao-performance.webp" },
-    { label: "Saúde e bem-estar", icon: "leaf", enabled: true, confirmed: true },
-    { label: "Pele e cabelos", icon: "sparkles", enabled: true, confirmed: true, image: "/images/hero_carrossel/care-pele-cabelos.webp" },
-    { label: "Sono e rotina", icon: "moon", enabled: true, confirmed: true, image: "/images/hero_carrossel/care-sono-rotina.webp" },
+    {
+      slug: "emagrecimento", label: "Emagrecimento e saúde metabólica", icon: "gauge", enabled: true, confirmed: true, color: "indigo",
+      summary: "Atendimento personalizado para quem busca orientação sobre emagrecimento e saúde metabólica.",
+      subitems: ["Acelerador de metabolismo", "Gordura localizada", "Inibidor de apetite", "Desintoxicação do organismo", "Perda de medidas", "Sacietógenos", "Fonte de fibra", "Emagrecedor"],
+    },
+    {
+      slug: "longevidade", label: "Longevidade", icon: "hourglass", enabled: true, confirmed: true, color: "cyan", image: "/images/hero_carrossel/care-longevidade.webp",
+      summary: "Converse com a nossa equipe sobre cuidado e longevidade.",
+      subitems: [],
+    },
+    {
+      slug: "nutricao-e-performance", label: "Nutrição e performance", icon: "activity", enabled: true, confirmed: true, color: "green", image: "/images/hero_carrossel/care-nutricao-performance.webp",
+      summary: "Atendimento personalizado para rotina de treino, energia e desempenho.",
+      subitems: ["Termogênico", "Energia e resistência", "Pré-treino", "Pós-treino", "Desempenho físico"],
+    },
+    {
+      slug: "saude-e-bem-estar", label: "Saúde e bem-estar", icon: "leaf", enabled: true, confirmed: true, color: "mint",
+      summary: "Atendimento personalizado para o seu bem-estar no dia a dia.",
+      subitems: ["Memória e concentração", "Alívio dos sintomas de TPM"],
+    },
+    {
+      slug: "pele-e-cabelos", label: "Pele e cabelos", icon: "sparkles", enabled: true, confirmed: true, color: "rose", image: "/images/hero_carrossel/care-pele-cabelos.webp",
+      summary: "Atendimento personalizado para o cuidado com a pele, os cabelos e as unhas.",
+      subitems: ["Saúde da pele", "Fotoproteção", "Antiacne", "Hidratantes", "Rejuvenescimento", "Firmeza da pele", "Antiqueda", "Brilho", "Fortalecimento de unha e cabelo"],
+    },
+    {
+      slug: "sono-e-rotina", label: "Sono e rotina", icon: "moon", enabled: true, confirmed: true, color: "violet", image: "/images/hero_carrossel/care-sono-rotina.webp",
+      summary: "Atendimento personalizado para o sono e a rotina.",
+      subitems: ["Melhorar o sono", "O que usar ao acordar"],
+    },
     // Fora do briefing: mantidas desabilitadas.
-    { label: "Saúde da mulher", icon: "flower", enabled: false, confirmed: false, image: "/images/hero_carrossel/care-saude-mulher.webp" },
-    { label: "Saúde do homem", icon: "compass", enabled: false, confirmed: false, image: "/images/hero_carrossel/care-saude-homem.webp" },
-    { label: "Cuidado veterinário", icon: "paw", enabled: false, confirmed: false, image: "/images/hero_carrossel/care-veterinario.webp" },
+    { slug: "saude-da-mulher", label: "Saúde da mulher", icon: "flower", enabled: false, confirmed: false, color: "rose", image: "/images/hero_carrossel/care-saude-mulher.webp", summary: "", subitems: [] },
+    { slug: "saude-do-homem", label: "Saúde do homem", icon: "compass", enabled: false, confirmed: false, color: "indigo", image: "/images/hero_carrossel/care-saude-homem.webp", summary: "", subitems: [] },
+    { slug: "cuidado-veterinario", label: "Cuidado veterinário", icon: "paw", enabled: false, confirmed: false, color: "green", image: "/images/hero_carrossel/care-veterinario.webp", summary: "", subitems: [] },
   ],
 } as const;
+
+/** Cores dos chips (uma por categoria). Texto escuro sobre fundo claro: contraste AA. */
+export const chipColors = {
+  indigo: "bg-brand-50 text-brand-950 ring-1 ring-brand-950/15",
+  cyan: "bg-cyan-50 text-cyan-950 ring-1 ring-cyan-900/15",
+  green: "bg-care-50 text-care-700 ring-1 ring-care-700/20",
+  mint: "bg-fm-mint-soft text-fm-green-dark ring-1 ring-fm-green-dark/20",
+  rose: "bg-rose-50 text-rose-900 ring-1 ring-rose-900/15",
+  violet: "bg-violet-50 text-violet-900 ring-1 ring-violet-900/15",
+} as const;
+
+export type CareArea = (typeof careAreas.items)[number];
+
+export const findCareArea = (slug: string): CareArea | undefined =>
+  careAreas.items.find((a) => a.enabled && a.slug === slug);
+
+/**
+ * Flags (padrão: desligadas). Lidas só no servidor; passe o resultado por props a componentes de cliente.
+ * Ver .env.example.
+ */
+const flag = (name: string) => env(name) === "true";
+export const flags = {
+  /** Rascunho de categorias/subitens (aguarda validação da cliente, A-004). */
+  subitems: flag("MOSTRAR_RASCUNHO_SUBITENS"),
+  /** "Soluções personalizadas" em chips de texto (experimento reversível, D-006). Exige `subitems`. */
+  chips: flag("SECAO_SOLUCOES_CHIPS"),
+  /** Formulário de envio de receita (exige destino em RECEITA_DESTINO). */
+  prescriptionForm: flag("RECEITA_FORM_ENABLED"),
+  /** Seção YouTube/Instagram (exige URLs em `videos`). */
+  videos: flag("SECAO_VIDEOS"),
+  /** Variação do pilar "personalização": "a" | "b" | desligado. */
+  personalization: ((): "a" | "b" | null => {
+    const v = env("PILAR_PERSONALIZACAO");
+    return v === "a" || v === "b" ? v : null;
+  })(),
+};
 
 export const about = {
   title: "Uma fórmula carrega ciência. Um cuidado carrega história.",
@@ -409,7 +486,3 @@ export const images = {
     realPhoto: false,
   },
 } satisfies Record<string, ImageSlot>;
-
-/** Mensagem contextual para um card de área de atendimento. */
-export const careAreaMessage = (area: string) =>
-  `Olá! Gostaria de conversar com a equipe da Formily Farmácia de Manipulação sobre atendimento na área de "${area}".`;

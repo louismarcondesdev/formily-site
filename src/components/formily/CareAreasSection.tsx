@@ -1,4 +1,4 @@
-import { careAreas } from "@/config/site";
+import { careAreas, whatsapp } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Container, SectionHeading } from "./Section";
 import { NamedIcon } from "./icons";
@@ -6,7 +6,6 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/ui/scroll-reveal";
 import { WhatsAppButton } from "./WhatsAppButton";
 
 const isDev = process.env.NODE_ENV !== "production";
-const CTA_MESSAGE = "Olá! Não encontrei o que procuro e gostaria de falar com a equipe da Formily Farmácia de Manipulação.";
 
 function HelpCta() {
   return (
@@ -16,7 +15,7 @@ function HelpCta() {
         event="whatsapp_click_care_area"
         variant="ghost"
         eventParams={{ area: "outras", placement: "care_areas_cta" }}
-        message={CTA_MESSAGE}
+        message={whatsapp.messages.team}
       >
         Falar com a equipe
       </WhatsAppButton>
