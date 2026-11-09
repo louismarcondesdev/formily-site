@@ -158,7 +158,8 @@ export const topBarMessages = [
 
 export const hero = {
   eyebrow: "Farmácia de manipulação em Campinas",
-  title: "Sua fórmula é única. Seu cuidado também.",
+  /** "\n" separa as duas linhas do título (lado a lado a partir de sm). */
+  title: "Sua fórmula é única.\nSeu cuidado também.",
   text: "Cada preparo é desenvolvido com precisão técnica, matérias-primas selecionadas e atenção às necessidades de cada paciente.",
   primaryCta: "Enviar receita pelo WhatsApp",
   secondaryCta: "Como funciona a manipulação",

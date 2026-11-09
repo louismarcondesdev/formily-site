@@ -205,6 +205,10 @@
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
 }
+@keyframes fm-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
 @keyframes fm-float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -223,7 +227,7 @@
       #ffffff;
   }
   .hero-title {
-    max-width: 920px;
+    max-width: none;
     font-size: clamp(3rem, 5.4vw, 5.8rem);
     line-height: 0.98;
     letter-spacing: -0.055em;
@@ -292,10 +296,22 @@
     outline-offset: 3px;
   }
 
+  /* Todos os botões (primário, sobre o CTA final e secundário) sobem e descem de leve.
+     Só para quem não pediu menos movimento; pausa no hover/foco e quando desabilitado. */
   @media (prefers-reduced-motion: no-preference) {
+    .btn-primary,
+    .btn-on-cta,
+    .btn-secondary {
+      animation: fm-bob 3s ease-in-out infinite;
+    }
     .btn-primary:hover,
-    .btn-on-cta:hover {
-      transform: translateY(-1px);
+    .btn-on-cta:hover,
+    .btn-secondary:hover,
+    .btn-primary:focus-visible,
+    .btn-on-cta:focus-visible,
+    .btn-secondary:focus-visible,
+    .btn-primary:disabled {
+      animation-play-state: paused;
     }
   }
 }

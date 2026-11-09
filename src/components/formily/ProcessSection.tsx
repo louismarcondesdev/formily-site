@@ -18,7 +18,7 @@ export function ProcessSection() {
   return (
     <section id="como-funciona" aria-labelledby="como-title" className="relative scroll-mt-24 bg-white py-20 lg:py-28">
       <Container className="relative">
-        <SectionHeading id="como-title" title={proc.title} subtitle={proc.subtitle} />
+        <SectionHeading id="como-title" title={proc.title} subtitle={proc.subtitle} className="lg:max-w-5xl" subtitleClassName="lg:whitespace-nowrap" />
 
         <Timeline data={data} className="mt-14" />
 
