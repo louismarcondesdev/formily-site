@@ -7,6 +7,7 @@ const items = team.members.map((m) => ({
   subtitle: m.role,
   description: m.bio,
   image: m.photo,
+  imageClass: m.photoFocus,
   alt: `Foto de ${m.name}`,
 }));
 

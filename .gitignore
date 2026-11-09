@@ -54,3 +54,5 @@ __pycache__/
 .claude/skills/
 docs/*.docx
 /formily_*.webp
+.data/
+.playwright-mcp/

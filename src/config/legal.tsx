@@ -1,5 +1,5 @@
 import type { LegalSection } from "@/components/formily/LegalPage";
-import { cityState, contact } from "@/config/site";
+import { cityState, contact, flags } from "@/config/site";
 
 /** Conteúdo inicial — sujeito à validação jurídica/LGPD antes da publicação definitiva. */
 
@@ -15,7 +15,12 @@ export const privacy = {
     },
     {
       title: "2. Quais informações podem ser tratadas",
-      body: (
+      body: flags.prescriptionForm ? (
+        <p>
+          Você pode compartilhar informações pelo formulário de envio de receita deste site (nome, WhatsApp, e-mail opcional e o arquivo da
+          receita) ou ao entrar em contato pelo WhatsApp, telefone ou e-mail (por exemplo, nome, telefone e o conteúdo de mensagens e receitas enviadas).
+        </p>
+      ) : (
         <p>
           Este site é institucional e não possui formulários de cadastro. As informações são compartilhadas por você ao entrar em contato
           pelo WhatsApp, telefone ou e-mail (por exemplo, nome, telefone e o conteúdo de mensagens e receitas enviadas).
@@ -33,19 +38,21 @@ export const privacy = {
     },
     {
       title: "4. Finalidades e bases legais",
-      body: <p>[PREENCHER: FINALIDADES E BASES LEGAIS — a definir com assessoria jurídica].</p>,
+      pending: true,
+      body: <p>[PENDENTE: finalidades e bases legais, a definir com assessoria jurídica].</p>,
     },
     {
       title: "5. Compartilhamento e retenção",
-      body: <p>[PREENCHER: COMPARTILHAMENTO COM TERCEIROS E PRAZOS DE RETENÇÃO — a definir com assessoria jurídica].</p>,
+      pending: true,
+      body: <p>[PENDENTE: compartilhamento com terceiros e prazos de retenção, a definir com assessoria jurídica].</p>,
     },
     {
       title: "6. Direitos do titular",
-      body: <p>Você poderá solicitar acesso, correção, exclusão e demais direitos previstos na LGPD, entrando em contato pelo canal {contact.privacyEmail ?? "[PREENCHER: E-MAIL PRIVACIDADE]"}.</p>,
+      body: <p>Você poderá solicitar acesso, correção, exclusão e demais direitos previstos na LGPD, entrando em contato pelo canal {contact.privacyEmail}.</p>,
     },
     {
       title: "7. Contato sobre privacidade",
-      body: <p>Canal: {contact.privacyEmail ?? "[PREENCHER: E-MAIL PRIVACIDADE]"}.</p>,
+      body: <p>Canal: {contact.privacyEmail}.</p>,
     },
   ] satisfies LegalSection[],
 };
@@ -65,7 +72,7 @@ export const cookies = {
       body: (
         <p>
           Caso a Formily adote ferramentas de métricas ou publicidade, elas serão listadas aqui e, quando exigido, dependerão do seu
-          consentimento. Ferramentas em uso: [PREENCHER: FERRAMENTAS DE ANALYTICS/MARKETING, SE HOUVER].
+          consentimento.
         </p>
       ),
     },
@@ -75,7 +82,7 @@ export const cookies = {
     },
     {
       title: "4. Contato",
-      body: <p>Dúvidas: {contact.privacyEmail ?? "[PREENCHER: E-MAIL PRIVACIDADE]"}.</p>,
+      body: <p>Dúvidas: {contact.privacyEmail}.</p>,
     },
   ] satisfies LegalSection[],
 };
@@ -107,7 +114,7 @@ export const terms = {
     },
     {
       title: "6. Alterações e foro",
-      body: <p>Estes termos podem ser atualizados. Foro e demais disposições: [PREENCHER: FORO E DISPOSIÇÕES — a definir com assessoria jurídica].</p>,
+      body: <p>Estes termos podem ser atualizados.</p>,
     },
   ] satisfies LegalSection[],
 };

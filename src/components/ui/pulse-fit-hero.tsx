@@ -41,7 +41,7 @@ export function PulseFitHero({
           className,
         )}
       >
-        <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center px-4 pb-12 pt-14 text-center sm:px-6 sm:pt-20 lg:pt-24">
+        <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col items-center px-4 pb-12 pt-14 text-center sm:px-6 sm:pt-20 lg:pt-24">
           <RevealGroup stagger={0.08} className="flex w-full flex-col items-center">
             <RevealItem className="flex flex-col items-center gap-7">
               {eyebrow && (
@@ -50,10 +50,15 @@ export function PulseFitHero({
                 </p>
               )}
               <h1 id={titleId} className="hero-title mx-auto text-balance">
-                {title}
+                {/* Uma frase por linha: a partir de sm nenhuma linha quebra. */}
+                {title.split("\n").map((line) => (
+                  <span key={line} className="block sm:whitespace-nowrap">
+                    {line}{" "}
+                  </span>
+                ))}
               </h1>
             </RevealItem>
-            <RevealItem as="p" className="mt-7 max-w-2xl text-[1.0625rem] leading-relaxed text-text-650 sm:text-xl lg:text-[1.375rem]">
+            <RevealItem as="p" className="mt-7 max-w-2xl text-balance text-[1.0625rem] leading-relaxed text-text-650 sm:text-xl lg:max-w-3xl lg:text-[1.375rem]">
               {subtitle}
             </RevealItem>
             {actions && (

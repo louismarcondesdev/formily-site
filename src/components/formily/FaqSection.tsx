@@ -1,5 +1,5 @@
 import { MessageCircle } from "lucide-react";
-import { faq } from "@/config/site";
+import { faq, whatsapp } from "@/config/site";
 import { Faqs01 } from "@/components/ui/faqs-01";
 import { Container } from "./Section";
 import { LinkedText } from "./LinkedText";
@@ -19,7 +19,7 @@ function FaqHelpCard() {
           </p>
         </div>
       </div>
-      <WhatsAppButton event="whatsapp_click_faq" className="w-full shrink-0 sm:w-auto">
+      <WhatsAppButton event="whatsapp_click_faq" message={whatsapp.messages.question} className="w-full shrink-0 sm:w-auto">
         Tirar minha dúvida
       </WhatsAppButton>
     </div>
@@ -28,7 +28,7 @@ function FaqHelpCard() {
 
 const items = faq.items.map((f) => ({
   q: f.q,
-  a: <LinkedText text={f.a} linkLabel={"linkLabel" in f ? f.linkLabel : undefined} event="whatsapp_click_faq" />,
+  a: <LinkedText text={f.a} links={"links" in f ? f.links : undefined} event="whatsapp_click_faq" />,
 }));
 
 export function FaqSection() {

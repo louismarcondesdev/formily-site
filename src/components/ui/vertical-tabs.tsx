@@ -97,7 +97,7 @@ export function VerticalTabs({ items, className }: { items: readonly VerticalTab
             const isPrevious = i === previous;
             return (
               <Image
-                key={it.image}
+                key={`${i}-${it.image}`}
                 src={it.image}
                 alt={isActive ? it.alt : ""}
                 aria-hidden={!isActive}

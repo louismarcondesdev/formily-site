@@ -205,6 +205,10 @@
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
 }
+@keyframes fm-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
 @keyframes fm-float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -223,7 +227,7 @@
       #ffffff;
   }
   .hero-title {
-    max-width: 920px;
+    max-width: none;
     font-size: clamp(3rem, 5.4vw, 5.8rem);
     line-height: 0.98;
     letter-spacing: -0.055em;
@@ -242,15 +246,6 @@
     background: rgba(255, 255, 255, 0.95);
     border-bottom-color: rgba(48, 38, 110, 0.12);
     box-shadow: 0 10px 24px rgba(34, 31, 70, 0.1);
-  }
-
-  /* Caixa "Ainda tem alguma dúvida?" do FAQ. */
-  .faq-help {
-    background: var(--surface-50);
-    border: 1px solid var(--border-subtle);
-    border-left: 4px solid var(--formily-green);
-    border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(36, 33, 58, 0.05);
   }
 
   /* CTA final: índigo profundo com um único brilho de ação e um toque de verde. */
@@ -301,10 +296,22 @@
     outline-offset: 3px;
   }
 
+  /* Todos os botões (primário, sobre o CTA final e secundário) sobem e descem de leve.
+     Só para quem não pediu menos movimento; pausa no hover/foco e quando desabilitado. */
   @media (prefers-reduced-motion: no-preference) {
+    .btn-primary,
+    .btn-on-cta,
+    .btn-secondary {
+      animation: fm-bob 3s ease-in-out infinite;
+    }
     .btn-primary:hover,
-    .btn-on-cta:hover {
-      transform: translateY(-1px);
+    .btn-on-cta:hover,
+    .btn-secondary:hover,
+    .btn-primary:focus-visible,
+    .btn-on-cta:focus-visible,
+    .btn-secondary:focus-visible,
+    .btn-primary:disabled {
+      animation-play-state: paused;
     }
   }
 }
@@ -318,7 +325,8 @@
   .animate-fm-float {
     animation: none !important;
   }
+  /* Sem movimento (transform, largura, posição), mas o feedback de cor, sombra, opacidade e foco continua. */
   * {
-    transition-duration: 0.01ms !important;
+    transition-property: color, background-color, border-color, box-shadow, opacity, outline-color, text-decoration-color !important;
   }
 }

@@ -1,4 +1,6 @@
-import { careAreas } from "@/config/site";
+import Link from "next/link";
+import { careAreas, chipColors, flags, whatsapp } from "@/config/site";
+import { subgruposDe } from "@/config/subgrupos";
 import { cn } from "@/lib/utils";
 import { Container, SectionHeading } from "./Section";
 import { NamedIcon } from "./icons";
@@ -6,7 +8,6 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/ui/scroll-reveal";
 import { WhatsAppButton } from "./WhatsAppButton";
 
 const isDev = process.env.NODE_ENV !== "production";
-const CTA_MESSAGE = "Olá! Não encontrei o que procuro e gostaria de falar com a equipe da Formily Farmácia de Manipulação.";
 
 function HelpCta() {
   return (
@@ -16,12 +17,20 @@ function HelpCta() {
         event="whatsapp_click_care_area"
         variant="ghost"
         eventParams={{ area: "outras", placement: "care_areas_cta" }}
-        message={CTA_MESSAGE}
+        message={whatsapp.messages.team}
       >
         Falar com a equipe
       </WhatsAppButton>
     </Reveal>
   );
+}
+
+/** Intercala os subgrupos das áreas (1º de cada área, depois o 2º...) para misturar as cores. Máx. 4 por área: são 71 no total. */
+function interleavedChips(items: readonly (typeof careAreas.items)[number][]) {
+  const rows = items.map((a) => subgruposDe(a.slug).slice(0, 4).map((s) => ({ name: s.titulo, area: a.label, color: a.color })));
+  const out: (typeof rows)[number] = [];
+  for (let i = 0; i < Math.max(0, ...rows.map((r) => r.length)); i++) rows.forEach((r) => r[i] && out.push(r[i]));
+  return out;
 }
 
 /**
@@ -33,13 +42,25 @@ function HelpCta() {
 export function CareAreasSection() {
   const items = careAreas.items.filter((a) => a.enabled);
   const bento = items.length >= 7;
+  // Experimento reversível (D-006): chips só de texto, não clicáveis. Depende do rascunho de subitens.
+  const chips = flags.chips && flags.subitems ? interleavedChips(items) : [];
 
   return (
     <section aria-labelledby="areas-title" className="bg-surface-50 py-20 lg:py-28">
       <Container>
         <SectionHeading id="areas-title" title={careAreas.title} subtitle={careAreas.subtitle} />
 
-        {items.length >= 4 && (
+        {chips.length > 0 ? (
+          <ul className="mt-14 flex flex-wrap justify-center gap-2.5 sm:gap-3">
+            {chips.map((c) => (
+              <li key={`${c.area}-${c.name}`} className={cn("rounded-full px-4 py-2 text-sm font-semibold sm:text-base", chipColors[c.color])}>
+                {c.name}
+                <span className="sr-only"> ({c.area})</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          items.length >= 4 && (
           <RevealGroup
             as="ul"
             className={cn(
@@ -54,7 +75,7 @@ export function CareAreasSection() {
                   as="li"
                   key={a.label}
                   className={cn(
-                    "flex flex-col rounded-[22px] border border-border-subtle bg-white p-6 transition-[transform,border-color] duration-200 ease-out motion-safe:hover:-translate-y-0.5 hover:border-fm-indigo/25 sm:p-7",
+                    "relative flex flex-col rounded-[22px] border border-border-subtle bg-white p-6 transition-[transform,border-color] duration-200 ease-out motion-safe:hover:-translate-y-0.5 hover:border-fm-indigo/25 sm:p-7",
                     main && "md:col-span-2 lg:row-span-2 lg:p-9",
                   )}
                 >
@@ -67,6 +88,12 @@ export function CareAreasSection() {
                     <NamedIcon name={a.icon} className={main ? "size-7" : "size-5"} />
                   </span>
                   <h3 className={cn("mt-5 font-bold", main ? "text-2xl lg:text-3xl" : "text-lg")}>{a.label}</h3>
+                  {flags.subitems && (
+                    // Nicho → subgrupos (Dayene, 22/10): o card inteiro abre a página da área.
+                    <Link href={`/categoria/${a.slug}`} className="mt-4 text-sm font-bold text-fm-green-dark after:absolute after:inset-0 after:rounded-[22px]">
+                      Ver cuidados<span className="sr-only"> de {a.label}</span>
+                    </Link>
+                  )}
                   {isDev && !a.confirmed && (
                     <p className="mt-1.5 text-[0.7rem] font-semibold uppercase tracking-wide text-text-500">
                       [VALIDAR DISPONIBILIDADE] (visível só em desenvolvimento)
@@ -76,6 +103,7 @@ export function CareAreasSection() {
               );
             })}
           </RevealGroup>
+          )
         )}
 
         <HelpCta />

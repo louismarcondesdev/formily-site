@@ -6,7 +6,10 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { MobileStickyCta } from "./MobileStickyCta";
 
-export type LegalSection = { title: string; body: ReactNode };
+/** `pending`: texto jurídico ainda não definido; só aparece em desenvolvimento (nunca ao público). */
+export type LegalSection = { title: string; body: ReactNode; pending?: boolean };
+
+const isDev = process.env.NODE_ENV !== "production";
 
 export function LegalPage({ title, intro, sections }: { title: string; intro: string; sections: LegalSection[] }) {
   return (
@@ -24,13 +27,16 @@ export function LegalPage({ title, intro, sections }: { title: string; intro: st
             </span>
           </p>
           <p className="mt-6 text-lg leading-relaxed text-fm-muted">{intro}</p>
-          {sections.map((s) => (
+          {sections
+            .filter((s) => isDev || !s.pending)
+            // Renumera depois de ocultar seções pendentes, sem deixar buracos (1, 2, 3, 6…).
+            .map((s, i) => (
             <section key={s.title} className="mt-10">
-              <h2 className="text-xl font-bold sm:text-2xl">{s.title}</h2>
+              <h2 className="text-xl font-bold sm:text-2xl">{`${i + 1}. ${s.title.replace(/^\d+\.\s*/, "")}`}</h2>
               <div className="mt-3 space-y-3 leading-relaxed text-fm-ink/90">{s.body}</div>
             </section>
           ))}
-          <p className="mt-12 text-sm text-fm-muted">Última atualização: [PREENCHER: DATA DE VIGÊNCIA]</p>
+          {isDev && <p className="mt-12 text-sm text-fm-muted">[PENDENTE, visível só em desenvolvimento] Data de vigência.</p>}
         </Container>
       </main>
       <Footer />

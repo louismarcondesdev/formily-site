@@ -1,6 +1,6 @@
 import { ExternalLink } from "lucide-react";
-import { contact, cityState, footer, hasBusinessValue, legalLinks, nav, whatsapp } from "@/config/site";
-import { isWhatsAppConfigured, whatsappUrl } from "@/lib/whatsapp";
+import { contact, cityState, footer, hasBusinessValue, legalLinks, nav } from "@/config/site";
+import { isWhatsAppConfigured, whatsappDisplay, whatsappUrl } from "@/lib/whatsapp";
 import { Footer as FooterBase } from "@/components/ui/footer-1";
 
 /**
@@ -14,7 +14,7 @@ export function Footer() {
 
   const service = [
     { label: cityState },
-    ...(isWhatsAppConfigured ? [{ label: whatsapp.display ? `WhatsApp: ${whatsapp.display}` : "Falar no WhatsApp", href: whatsappUrl() }] : []),
+    ...(isWhatsAppConfigured ? [{ label: whatsappDisplay() ? `WhatsApp: ${whatsappDisplay()}` : "Falar no WhatsApp", href: whatsappUrl() }] : []),
     ...(phone ? [{ label: `Telefone: ${phone}`, href: `tel:${phone.replace(/[^\d+]/g, "")}` }] : []),
     ...(email ? [{ label: `E-mail: ${email}`, href: `mailto:${email}` }] : []),
     ...(hours ? [{ label: `Horários: ${hours}` }] : []),

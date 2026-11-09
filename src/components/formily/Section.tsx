@@ -15,6 +15,7 @@ export function SectionHeading({
   align = "center",
   className,
   textReveal = false,
+  subtitleClassName,
 }: {
   id?: string;
   eyebrow?: string;
@@ -24,6 +25,8 @@ export function SectionHeading({
   className?: string;
   /** Text Reveal palavra a palavra no título (usar em no máximo 3 títulos institucionais). */
   textReveal?: boolean;
+  /** Classes extras do subtítulo (ex.: `lg:whitespace-nowrap` para uma linha só no desktop). */
+  subtitleClassName?: string;
 }) {
   const cls = cn("max-w-3xl", align === "center" && "mx-auto text-center", className);
   const Wrap = textReveal ? "div" : Reveal; // com Text Reveal, o próprio título anima
@@ -37,7 +40,7 @@ export function SectionHeading({
       <h2 id={id} className="text-3xl font-extrabold leading-tight sm:text-4xl lg:text-[2.75rem]">
         {textReveal ? <TextReveal text={title} /> : title}
       </h2>
-      {subtitle && <p className="mt-4 text-lg leading-relaxed text-fm-muted">{subtitle}</p>}
+      {subtitle && <p className={cn("mt-4 text-lg leading-relaxed text-fm-muted", subtitleClassName)}>{subtitle}</p>}
     </Wrap>
   );
 }
