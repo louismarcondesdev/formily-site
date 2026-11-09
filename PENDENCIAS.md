@@ -30,13 +30,12 @@ Marque `[x]` ao resolver. Flags e variáveis: ver `.env.example` (todas desligad
 ## 4. Imagens placeholder (trocar pelas fotos reais, previstas ≈ 07–14/10/2026)
 | Arquivo | Onde aparece |
 |---|---|
-| `public/images/day.webp` | Equipe (Dayene) — **gerada por IA** a partir de prints |
+| `public/images/equipe/*.webp` | Equipe (Rodrigo, Dayene, Gabryelle): fotos enviadas pela KOER em 09/11, que parecem **geradas/editadas por IA** (cenário da farmácia). Trocar pelas fotos reais; confirmar autorização de uso de imagem |
 | `public/images/formily-manifesto.webp` | Aba "Atendimento individualizado", seção Sobre, variações do pilar |
 | `public/images/formily_laboratorio.webp` | Aba "Excelência técnica" (balança/rigor técnico), Estrutura |
 | `public/images/formily_fachada.webp` | Aba "Segurança e rastreabilidade", Estrutura (fachada ainda não instalada) |
 | `public/images/formily_equipe.webp` | Aba "Proximidade", Estrutura |
 | `public/images/hero_carrossel/*.webp` | Cards do topo (aprovados; não alterar) |
-| Rodrigo e Gabryelle | Sem foto (avatar com iniciais): fotos pendentes (A-006) |
 Registrar autorização de uso de imagem da equipe.
 
 ## 5. Backlog

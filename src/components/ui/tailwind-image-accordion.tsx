@@ -12,6 +12,8 @@ export type ImageAccordionItem = {
   /** Sem imagem, o painel mostra as iniciais do título sobre um fundo de marca. */
   image?: string | null;
   alt?: string;
+  /** Classe de enquadramento da imagem (ex.: `object-[64%_50%]`), para manter o rosto no recorte vertical. */
+  imageClass?: string;
 };
 
 const FALLBACK_BG = [
@@ -59,7 +61,7 @@ export function TailwindImageAccordion({
               alt={item.alt ?? item.title}
               fill
               sizes="(min-width: 768px) 60vw, 100vw"
-              className="object-cover"
+              className={cn("object-cover", item.imageClass)}
             />
           ) : (
             <span
