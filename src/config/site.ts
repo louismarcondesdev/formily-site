@@ -220,7 +220,7 @@ export const personalizationPillar = {
 } as const;
 
 export const howItWorks = {
-  title: "Simples, seguro e feito para você.",
+  title: "Simples, seguro e personalizado para você.",
   subtitle:
     "Da sua prescrição ao recebimento, acompanhamos cada etapa com atenção e responsabilidade.",
   steps: [
@@ -260,8 +260,8 @@ export const careAreas = {
   subtitle:
     "Converse com nossa equipe sobre as possibilidades de atendimento para sua prescrição.",
   /**
-   * `subitems`: RASCUNHO do anexo (5.2), todos itens ditos pela Dayene. NÃO publicar sem validação (A-004):
-   * só aparecem com MOSTRAR_RASCUNHO_SUBITENS=true. Mesmo subitem pode repetir em mais de uma área.
+   * Os subgrupos de cada área (Mapa V06) ficam em `src/config/subgrupos.ts` (campo `area` = `slug` daqui)
+   * e só aparecem com MOSTRAR_RASCUNHO_SUBITENS=true (validação pendente, A-004/A-014).
    * `color`: chave de `chipColors` (chips da seção "Soluções personalizadas").
    */
   items: [
@@ -270,37 +270,31 @@ export const careAreas = {
     {
       slug: "emagrecimento", label: "Emagrecimento e saúde metabólica", icon: "gauge", enabled: true, confirmed: true, color: "indigo",
       summary: "Atendimento personalizado para quem busca orientação sobre emagrecimento e saúde metabólica.",
-      subitems: ["Acelerador de metabolismo", "Gordura localizada", "Inibidor de apetite", "Desintoxicação do organismo", "Perda de medidas", "Sacietógenos", "Fonte de fibra", "Emagrecedor"],
     },
     {
       slug: "longevidade", label: "Longevidade", icon: "hourglass", enabled: true, confirmed: true, color: "cyan", image: "/images/hero_carrossel/care-longevidade.webp",
       summary: "Converse com a nossa equipe sobre cuidado e longevidade.",
-      subitems: [],
     },
     {
       slug: "nutricao-e-performance", label: "Nutrição e performance", icon: "activity", enabled: true, confirmed: true, color: "green", image: "/images/hero_carrossel/care-nutricao-performance.webp",
       summary: "Atendimento personalizado para rotina de treino, energia e desempenho.",
-      subitems: ["Termogênico", "Energia e resistência", "Pré-treino", "Pós-treino", "Desempenho físico"],
     },
     {
       slug: "saude-e-bem-estar", label: "Saúde e bem-estar", icon: "leaf", enabled: true, confirmed: true, color: "mint",
       summary: "Atendimento personalizado para o seu bem-estar no dia a dia.",
-      subitems: ["Memória e concentração", "Alívio dos sintomas de TPM"],
     },
     {
       slug: "pele-e-cabelos", label: "Pele e cabelos", icon: "sparkles", enabled: true, confirmed: true, color: "rose", image: "/images/hero_carrossel/care-pele-cabelos.webp",
       summary: "Atendimento personalizado para o cuidado com a pele, os cabelos e as unhas.",
-      subitems: ["Saúde da pele", "Fotoproteção", "Antiacne", "Hidratantes", "Rejuvenescimento", "Firmeza da pele", "Antiqueda", "Brilho", "Fortalecimento de unha e cabelo"],
     },
     {
       slug: "sono-e-rotina", label: "Sono e rotina", icon: "moon", enabled: true, confirmed: true, color: "violet", image: "/images/hero_carrossel/care-sono-rotina.webp",
       summary: "Atendimento personalizado para o sono e a rotina.",
-      subitems: ["Melhorar o sono", "O que usar ao acordar"],
     },
     // Fora do briefing: mantidas desabilitadas.
-    { slug: "saude-da-mulher", label: "Saúde da mulher", icon: "flower", enabled: false, confirmed: false, color: "rose", image: "/images/hero_carrossel/care-saude-mulher.webp", summary: "", subitems: [] },
-    { slug: "saude-do-homem", label: "Saúde do homem", icon: "compass", enabled: false, confirmed: false, color: "indigo", image: "/images/hero_carrossel/care-saude-homem.webp", summary: "", subitems: [] },
-    { slug: "cuidado-veterinario", label: "Cuidado veterinário", icon: "paw", enabled: false, confirmed: false, color: "green", image: "/images/hero_carrossel/care-veterinario.webp", summary: "", subitems: [] },
+    { slug: "saude-da-mulher", label: "Saúde da mulher", icon: "flower", enabled: false, confirmed: false, color: "rose", image: "/images/hero_carrossel/care-saude-mulher.webp", summary: "" },
+    { slug: "saude-do-homem", label: "Saúde do homem", icon: "compass", enabled: false, confirmed: false, color: "indigo", image: "/images/hero_carrossel/care-saude-homem.webp", summary: "" },
+    { slug: "cuidado-veterinario", label: "Cuidado veterinário", icon: "paw", enabled: false, confirmed: false, color: "green", image: "/images/hero_carrossel/care-veterinario.webp", summary: "" },
   ],
 } as const;
 
@@ -358,7 +352,7 @@ export const team = {
       name: "Rodrigo dos Santos Emiliano",
       role: "Sócio-proprietário",
       bio: "Farmacêutico formado pela Universidade São Francisco (USF) e sócio proprietário da Formily. Acredito que cuidar da saúde também é construir relações de confiança e proximidade. Meu compromisso é contribuir para que cada pessoa que faça parte da nossa história se sinta acolhida e bem cuidada, refletindo os valores e o propósito que nos inspiraram a tornar esse sonho em realidade.",
-      photo: null as string | null,
+      photo: "/images/rodrigo.webp" as string | null,
     },
     {
       name: "Dayene Priscila de Almeida Souza Emiliano",
@@ -370,7 +364,7 @@ export const team = {
       name: "Gabryelle de Almeida Souza",
       role: "Social media",
       bio: "Responsável pela estratégia e presença digital da Formily, atuando no planejamento, criação de conteúdo e posicionamento da marca. Trabalha para transformar a essência da farmácia em uma comunicação estratégica, humana e próxima do público.",
-      photo: null as string | null,
+      photo: "/images/gabryelle.webp" as string | null,
     },
   ],
 } as const;

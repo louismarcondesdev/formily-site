@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { careAreas, chipColors, flags, whatsapp } from "@/config/site";
+import { subgruposDe } from "@/config/subgrupos";
 import { cn } from "@/lib/utils";
 import { Container, SectionHeading } from "./Section";
 import { NamedIcon } from "./icons";
@@ -23,9 +25,9 @@ function HelpCta() {
   );
 }
 
-/** Intercala os subitens das áreas (1º de cada área, depois o 2º...) para misturar as cores. */
+/** Intercala os subgrupos das áreas (1º de cada área, depois o 2º...) para misturar as cores. Máx. 4 por área: são 71 no total. */
 function interleavedChips(items: readonly (typeof careAreas.items)[number][]) {
-  const rows = items.map((a) => a.subitems.map((name) => ({ name, area: a.label, color: a.color })));
+  const rows = items.map((a) => subgruposDe(a.slug).slice(0, 4).map((s) => ({ name: s.titulo, area: a.label, color: a.color })));
   const out: (typeof rows)[number] = [];
   for (let i = 0; i < Math.max(0, ...rows.map((r) => r.length)); i++) rows.forEach((r) => r[i] && out.push(r[i]));
   return out;
@@ -73,7 +75,7 @@ export function CareAreasSection() {
                   as="li"
                   key={a.label}
                   className={cn(
-                    "flex flex-col rounded-[22px] border border-border-subtle bg-white p-6 transition-[transform,border-color] duration-200 ease-out motion-safe:hover:-translate-y-0.5 hover:border-fm-indigo/25 sm:p-7",
+                    "relative flex flex-col rounded-[22px] border border-border-subtle bg-white p-6 transition-[transform,border-color] duration-200 ease-out motion-safe:hover:-translate-y-0.5 hover:border-fm-indigo/25 sm:p-7",
                     main && "md:col-span-2 lg:row-span-2 lg:p-9",
                   )}
                 >
@@ -86,6 +88,12 @@ export function CareAreasSection() {
                     <NamedIcon name={a.icon} className={main ? "size-7" : "size-5"} />
                   </span>
                   <h3 className={cn("mt-5 font-bold", main ? "text-2xl lg:text-3xl" : "text-lg")}>{a.label}</h3>
+                  {flags.subitems && (
+                    // Nicho → subgrupos (Dayene, 22/10): o card inteiro abre a página da área.
+                    <Link href={`/categoria/${a.slug}`} className="mt-4 text-sm font-bold text-fm-green-dark after:absolute after:inset-0 after:rounded-[22px]">
+                      Ver cuidados<span className="sr-only"> de {a.label}</span>
+                    </Link>
+                  )}
                   {isDev && !a.confirmed && (
                     <p className="mt-1.5 text-[0.7rem] font-semibold uppercase tracking-wide text-text-500">
                       [VALIDAR DISPONIBILIDADE] (visível só em desenvolvimento)

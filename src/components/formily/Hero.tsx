@@ -14,6 +14,7 @@ const areaCards = (clone: boolean) =>
     <HeroAreaCard
       key={a.label}
       label={a.label}
+      summary={flags.subitems ? a.summary : undefined}
       icon={a.icon}
       image={a.image}
       href={
